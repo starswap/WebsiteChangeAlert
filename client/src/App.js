@@ -4,6 +4,7 @@ import FetchStep1 from './components/fetchStep1';
 import FetchStep2 from './components/fetchStep2'; 
 import FetchStep3 from './components/fetchStep3'; 
 import FetchStep4 from './components/fetchStep4'; 
+import FetchStep5 from './components/fetchStep5'; 
 
 
 import {useState} from 'react';
@@ -44,10 +45,12 @@ function App() {
     currentStep = (<FetchStep4 onChosen={ (emailContentsToSet) => {
       setEmailContents(emailContentsToSet);
 
-      //CODE FOR SUBMIT GOES HERE. - or possibly a fifth screen.
+      //CODE FOR SUBMIT GOES HERE
       
-      // setStepNumber( (stepNo) => stepNo+1);
+      setStepNumber( (stepNo) => stepNo+1);
     }}/>)
+    else if (stepNumber == 5)
+      currentStep = (<FetchStep5 url={url} reset={() => {setStepNumber(1);}}/>)    
 
 
   const goBack = () => {
@@ -59,7 +62,7 @@ function App() {
     <div className="App">
       <h1 id="title">Welcome to the website change alert.</h1>
       {currentStep} <br />
-      <input type="button" value="< Back" name="back" onClick={goBack}/>
+      {(stepNumber !== 5) && <input type="button" value="< Back" name="back" onClick={goBack}/>}
     </div>
 
   );
