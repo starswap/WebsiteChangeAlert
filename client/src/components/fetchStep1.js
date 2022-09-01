@@ -56,9 +56,7 @@ function MyFrame(props) {
         theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
             item.addEventListener('mouseout', mouseOut)
         );
-        theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
-            item.addEventListener('click', handleClick)
-        );        
+        theFrame.current.contentDocument.addEventListener('click', handleClick);        
     }
 
     function mouseIn(event) {
@@ -77,7 +75,17 @@ function MyFrame(props) {
 
     function handleClick(event) {
         event.preventDefault();
-        alert(theFrame.current.contentDocument.body.previous);
+        removeListeners();
+    }
+    
+    function removeListeners() {
+        theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
+            item.removeEventListener('mouseover', mouseIn)
+        );
+        theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
+            item.removeEventListener('mouseout', mouseOut)
+        );
+        theFrame.current.contentDocument.removeEventListener('click', handleClick);     
     }
 
     return <iframe ref={theFrame} id={props.id} src={props.src} onLoad={handleLoad} />;
