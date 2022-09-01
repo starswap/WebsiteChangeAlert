@@ -3,7 +3,7 @@ import './App.css';
 import FetchStep1 from './components/fetchStep1'; 
 import FetchStep2 from './components/fetchStep2'; 
 import FetchStep3 from './components/fetchStep3'; 
-import FetchStep4 from './components/fetchStep3'; 
+import FetchStep4 from './components/fetchStep4'; 
 
 
 import {useState} from 'react';
@@ -45,9 +45,10 @@ function App() {
       setEmailContents(emailContentsToSet);
 
       //CODE FOR SUBMIT GOES HERE. - or possibly a fifth screen.
-      alert("Done woooo");
+      
       // setStepNumber( (stepNo) => stepNo+1);
     }}/>)
+
 
   const goBack = () => {
     setStepNumber((stepNumber) => stepNumber-1);
@@ -57,7 +58,7 @@ function App() {
 
     <div className="App">
       <h1 id="title">Welcome to the website change alert.</h1>
-      {currentStep}
+      {currentStep} <br />
       <input type="button" value="< Back" name="back" onClick={goBack}/>
     </div>
 

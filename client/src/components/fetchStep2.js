@@ -1,7 +1,7 @@
 import {useState, useRef, useEffect} from 'react';
 import './fetchStep2.css';
 
-export default function FetchStep1 (props) {
+export default function FetchStep2 (props) {
     let url = props.url;
 
     // const [needsReload,setNeedsReload] = useState();
