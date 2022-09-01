@@ -22,7 +22,20 @@ app.get('/home', (req, res) => {
 app.get('/proxyPage', async (req,res) => {
     if (typeof req.cookies.targetPage !== 'undefined') { //we have a target page
         let proxyURL = req.cookies.targetPage;
-        let targetText = await fetch(proxyURL).then((response) => {return response.text()});
+        let targetText;
+
+        try {
+            targetText = await fetch(proxyURL).then((response) => {return response.text()});
+        }
+        catch (e) {
+            if (e instanceof TypeError) {
+                res.status(400); //need cookies to be set for it to work.
+                return res.send('Invalid URL; Go Back and Try Again.');            
+            } else {
+                throw e; 
+            }
+        }   
+        
         return res.send(targetText);
     }
     else {
@@ -38,7 +51,19 @@ app.get(/(.*)/, async (req,res) => {
         //Fetch the original resource
         let baseURL = req.cookies.targetDomain;
         let assetURL = baseURL+req.params[0];
-        let response = await fetch(assetURL);
+        let response;
+        try {
+            response = await fetch(assetURL);
+        }
+        catch (e) {
+            if (e instanceof TypeError) {
+                res.status(400); //need cookies to be set for it to work.
+                return res.send('Invalid URL.');    
+            }
+            else {
+                throw(e);
+            }
+        }
 
         //Get content type and content
         let contentType = response.headers.get("Content-Type"); //ensure the browser interprets the data as the correct content type.
