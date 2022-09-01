@@ -19,8 +19,16 @@ function App() {
 
   if (stepNumber == 1)
     currentStep = (<FetchStep1 onChosen={ (urlToSet) => {
+      if (urlToSet[urlToSet.length-1] != '/') {
+        urlToSet += '/'; //temporary
+      }
+      if (urlToSet.substring(0,4) != 'http') {
+        urlToSet = "http://" + urlToSet;
+      }
+
       setUrl(urlToSet);
       setStepNumber( (stepNo) => stepNo+1);
+
     }} setUrl={setUrl}/>)
   else if (stepNumber == 2)
     currentStep = (<FetchStep2 onChosen={ (tagObjectToSet) => {
@@ -35,7 +43,10 @@ function App() {
   else if (stepNumber == 4)
     currentStep = (<FetchStep4 onChosen={ (emailContentsToSet) => {
       setEmailContents(emailContentsToSet);
-      setStepNumber( (stepNo) => stepNo+1);
+
+      //CODE FOR SUBMIT GOES HERE. - or possibly a fifth screen.
+      alert("Done woooo");
+      // setStepNumber( (stepNo) => stepNo+1);
     }}/>)
 
   const goBack = () => {

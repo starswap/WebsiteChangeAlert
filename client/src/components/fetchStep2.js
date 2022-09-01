@@ -9,9 +9,6 @@ export default function FetchStep1 (props) {
     async function fetchFrame() {
         const urlMatcher = /(https?:\/\/[^/]*)\//;
         //Can we react-refactor this?
-        if (url[url.length-1] != '/') {
-            url += '/'; //temporary
-        }
 
         document.cookie = "targetPage="+url+"; SameSite=None; Secure";
         document.cookie = "targetDomain="+url.match(urlMatcher)[1]+"; SameSite=None; Secure";
