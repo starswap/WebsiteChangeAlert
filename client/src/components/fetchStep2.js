@@ -1,6 +1,8 @@
 import {useState, useRef, useEffect} from 'react';
 import './fetchStep2.css';
 
+const hoverClassName = 'blue';
+
 export default function FetchStep2 (props) {
     let url = props.url;
 
@@ -25,9 +27,9 @@ function MyFrame(props) {
     let theFrame = useRef(null);
 
     function handleLoad() {
-        let css = '.blue {background-color: blue !important; background-image:none !important;}';
+        let hoverClassCSS = '.blue {background-color: blue !important; background-image:none !important;}';
         let style = document.createElement('style');
-        style.appendChild(document.createTextNode(css));
+        style.appendChild(document.createTextNode(hoverClassCSS));
         theFrame.current.contentDocument.head.appendChild(style);
         theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
             item.addEventListener('mouseover', mouseIn)
@@ -39,17 +41,15 @@ function MyFrame(props) {
     }
 
     function mouseIn(event) {
-        //console.log(event.target);
-
         if (typeof theFrame.current.contentDocument.body.previous !== 'undefined') {
-            theFrame.current.contentDocument.body.previous.classList.remove('blue');
-        } 
-        event.target.classList.add('blue');
+            theFrame.current.contentDocument.body.previous.classList.remove(hoverClassName);
+        }
+        event.target.classList.add(hoverClassName);
         theFrame.current.contentDocument.body.previous = event.target;
     }
 
     function mouseOut(event) {
-        event.target.classList.remove('blue');
+        event.target.classList.remove(hoverClassName);
     }
 
     function handleClick(event) {
