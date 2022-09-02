@@ -79,7 +79,7 @@ function App() {
     <div className="App">
       <h1 id="title">Welcome to the website change alert.</h1>
       {currentStep} <br />
-      {(stepNumber !== 5) && <input type="button" value="< Back" name="back" onClick={goBack}/>}
+      {(stepNumber !== 5 && stepNumber !== 1) && <input type="button" value="< Back" name="back" onClick={goBack}/>}
     </div>
 
   );
