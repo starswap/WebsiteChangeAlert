@@ -55,7 +55,9 @@ function MyFrame(props) {
     function handleClick(event) {
         event.preventDefault();
         removeListeners();
-        props.clickEvent(theFrame.current.contentDocument.body.previous);
+        let theObject = theFrame.current.contentDocument.body.previous;
+        theObject.classList.remove(hoverClassName);
+        props.clickEvent(theObject);
     }
     
     function removeListeners() {
