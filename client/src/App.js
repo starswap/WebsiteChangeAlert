@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import FetchStep1 from './components/fetchStep1'; 
 import FetchStep2 from './components/fetchStep2'; 
@@ -9,6 +8,25 @@ import FetchStep5 from './components/fetchStep5';
 
 import {useState} from 'react';
 
+async function submitData(url,email,emailContents,tagObject) {
+  const rawResponse = await fetch('https://127.0.0.1:3000/submit', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        url: url,
+        email: email,
+        emailContents: emailContents,
+        tagObjectString: tagObject.outerHTML.replace(/ class=""/g, "")
+      })
+  });
+  const content = await rawResponse.json();
+
+  console.log(content);
+}
+
 function App() {
   const [stepNumber,setStepNumber] = useState(1);
   const [url,setUrl] = useState("");
@@ -17,13 +35,12 @@ function App() {
   const [tagObject,setTagObject] = useState("");
 
   let currentStep;
-
-  if (stepNumber == 1)
+  if (stepNumber === 1)
     currentStep = (<FetchStep1 onChosen={ (urlToSet) => {
-      if (urlToSet[urlToSet.length-1] != '/') {
+      if (urlToSet[urlToSet.length-1] !== '/') {
         urlToSet += '/'; //temporary
       }
-      if (urlToSet.substring(0,4) != 'http') {
+      if (urlToSet.substring(0,4) !== 'http') {
         urlToSet = "http://" + urlToSet;
       }
 
@@ -31,25 +48,25 @@ function App() {
       setStepNumber( (stepNo) => stepNo+1);
 
     }} setUrl={setUrl}/>)
-  else if (stepNumber == 2)
+  else if (stepNumber === 2)
     currentStep = (<FetchStep2 onChosen={ (tagObjectToSet) => {
       setTagObject(tagObjectToSet);
       setStepNumber( (stepNo) => stepNo+1);
     }} url={url}/>)
-  else if (stepNumber == 3)
+  else if (stepNumber === 3)
     currentStep = (<FetchStep3 onChosen={ (emailToSet) => {
       setEmail(emailToSet);
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)
-  else if (stepNumber == 4)
+  else if (stepNumber === 4)
     currentStep = (<FetchStep4 onChosen={ (emailContentsToSet) => {
       setEmailContents(emailContentsToSet);
 
-      //CODE FOR SUBMIT GOES HERE
+      submitData(url,email,emailContentsToSet,tagObject);
       
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)
-    else if (stepNumber == 5)
+    else if (stepNumber === 5)
       currentStep = (<FetchStep5 url={url} reset={() => {setStepNumber(1);}}/>)    
 
 

@@ -11,11 +11,26 @@ const PORT = 3000;
 
 //Express Middleware
 app.use(cookies()); //parse cookies
+app.use(express.json());
 app.use(express.static('../client/build')); //serve statically deployed frontend after React compilation
 
 //Serve static main page
 app.get('/home', (req, res) => {
     res.sendFile(path.resolve('../client/build', 'index.html'))
+});
+
+app.post('/submit', (req, res) => {
+    let url = req.body.url;
+    let email = req.body.email;
+    let emailContents = req.body.emailContents;
+    let tagObjectText = req.body.tagObjectString;
+    console.log("Request to Notify Received");
+    console.log("URL: " + url)
+    console.log("Email: " + email)
+    console.log("Email Contents: " + emailContents);
+    console.log("Tag Object Text: " + tagObjectText);
+    res.status(200); //need cookies to be set for it to work.
+    return res.send({"success":true});
 });
 
 //proxy page; requested via cookies.
