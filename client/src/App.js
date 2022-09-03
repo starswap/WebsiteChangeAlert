@@ -3,8 +3,8 @@ import FetchStep1 from './components/fetchStep1';
 import FetchStep2 from './components/fetchStep2'; 
 import FetchStep3 from './components/fetchStep3'; 
 import FetchStep4 from './components/fetchStep4'; 
-import FetchStep5 from './components/fetchStep5'; 
-
+import FetchStep5 from './components/fetchStep5';  
+import StepNumber from './components/stepNumber';
 
 import {useState} from 'react';
 
@@ -77,9 +77,23 @@ function App() {
   return (
 
     <div className="App">
-      <h1 id="title">Welcome to the website change alert.</h1>
-      {currentStep} <br />
-      {(stepNumber !== 5 && stepNumber !== 1) && <input type="button" value="< Back" name="back" onClick={goBack}/>}
+      <h1 id="title">Website Change Alert</h1>
+      <div id="topContainer">
+
+        <div className="grid">
+          <div className="column left">
+            {(stepNumber !== 5 && stepNumber !== 1) && <input type="button" id="back" value="&#8249;" name="back" onClick={goBack}/>}
+          </div>
+          <div className="column center">
+            <StepNumber num={stepNumber}/>
+            {currentStep} <br />
+          </div>
+          <div className="column right"></div>
+        </div>
+      
+
+
+      </div>
     </div>
 
   );

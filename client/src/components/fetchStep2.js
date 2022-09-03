@@ -19,7 +19,10 @@ export default function FetchStep2 (props) {
       useEffect(() => {fetchFrame()},[]);
 
       return (
+        <>
+            <h3>Click on the element to scan for changes to.</h3> 
             <MyFrame id="elementPickFrame" src='./proxyPage' clickEvent={props.onChosen}/>
+        </>
       ) 
 }
 
@@ -70,5 +73,6 @@ function MyFrame(props) {
         theFrame.current.contentDocument.removeEventListener('click', handleClick);     
     }
 
+    //return <div height={100} width={200}></div>
     return <iframe ref={theFrame} id={props.id} src={props.src} onLoad={handleLoad} />;
 }

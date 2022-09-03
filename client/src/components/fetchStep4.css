@@ -1,4 +1,27 @@
 #emailContent {
-    width: 200px;
+    width: 500px;
     height: 200px;
+    resize: none;
+}
+
+#emailContent:focus {
+    outline: none;
+}
+
+#submitContent {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 20px 5px 20px;
+    background-color: rgba(242, 179, 44, .7);
+    /*color: white;*/
+    font-weight: 500;
+}
+
+#submitContent:hover {
+    background-color: orange;
+}
+
+#submitContent:focus {
+    outline: none;
 }

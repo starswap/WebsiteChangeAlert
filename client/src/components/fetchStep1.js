@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 import './fetchStep1.css';
 
 export default function FetchStep1 (props) {
@@ -14,11 +14,15 @@ export default function FetchStep1 (props) {
         props.onChosen(url);
      }
 
+
       return (
-        <form onSubmit={handleSubmit}>
-            <input id="url" type="text" value={url} onChange={handleChange} /> 
-            <input type="submit" value="Fetch!"/> <br />
-        </form>
+        <>
+          <h3>Enter the URL to AlertOnChange!</h3> 
+          <form onSubmit={handleSubmit} autoComplete="off">
+              <input className="urlAndEmail" type="text" value={url} onChange={handleChange} placeholder="https://..."/> 
+              <input className="submitButton" type="submit" value="Fetch!"/> <br />
+          </form>
+        </>
       ) 
       
 }

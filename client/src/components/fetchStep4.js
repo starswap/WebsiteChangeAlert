@@ -12,8 +12,14 @@ export default function FetchStep3 (props) {
         props.onChosen(emailContent);
     }
 
-    return (<form onSubmit={handleSubmit}>
-        <textarea name='emailContent' id='emailContent' placeholder="Email Content Goes Here!" value={emailContent} onChange={handleChange}/>
-        <input type='submit' name='submit' id='submit' text='Next >' />
-    </form>)
+    return (
+        <>
+            <h3>Enter the content of the email to send.</h3> 
+
+            <form onSubmit={handleSubmit} autoComplete="off">
+                <textarea name='emailContent' id='emailContent' placeholder="Email Content Goes Here!" value={emailContent} onChange={handleChange}/> <br />
+                <input type='submit' name='submit' id='submitContent' text='Next >' />
+            </form>
+        </>
+    )
 }

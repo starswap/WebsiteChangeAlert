@@ -13,9 +13,9 @@ export default function FetchStep3 (props) {
     }
 
     return (<>
-            <p>Done!</p>
+            <h3>Done!</h3>
             <p>We will notify you if {props.url} changes.</p>
-            <input type="button" value="Make Another Alert!" onClick={props.reset}/>
+            <input type="button" id="another" value="Make Another Alert!" onClick={props.reset}/>
         </>
     )
 }

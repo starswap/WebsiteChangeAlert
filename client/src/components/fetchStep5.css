@@ -1,0 +1,17 @@
+#another {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 20px 5px 20px;
+    background-color: rgba(242, 179, 44, .7);
+    /*color: white;*/
+    font-weight: 500;
+}
+
+#another:hover {
+    background-color: orange;
+}
+
+#another:focus {
+    outline: none;
+}
