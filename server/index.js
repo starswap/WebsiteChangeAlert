@@ -5,6 +5,8 @@ import path from 'path';
 import https from 'https';
 import fs from 'fs';
 import cookies from 'cookie-parser';
+import {getDb} from './db.js';
+
 
 const app = express();
 const PORT = 3000;
@@ -19,16 +21,24 @@ app.get('/home', (req, res) => {
     res.sendFile(path.resolve('../client/build', 'index.html'))
 });
 
-app.post('/submit', (req, res) => {
-    let url = req.body.url;
-    let email = req.body.email;
-    let emailContents = req.body.emailContents;
-    let tagObjectText = req.body.tagObjectString;
+app.post('/submit', async (req, res) => {
+    let cleanedObject = {
+        url: req.body.url,
+        email: req.body.email,
+        elementToTrack: req.body.tagObjectString,
+        emailContent: req.body.emailContents
+    }
     console.log("Request to Notify Received");
-    console.log("URL: " + url)
-    console.log("Email: " + email)
-    console.log("Email Contents: " + emailContents);
-    console.log("Tag Object Text: " + tagObjectText);
+    console.log(cleanedObject);
+
+    const db = await getDb();
+    
+    //db.createCollection("alerts")
+    const collection = db.collection("alerts");
+    await collection.insertOne(cleanedObject);
+    console.log("The DB now looks like: ");
+    console.log(collection.find().forEach(console.log));
+
     res.status(200); //need cookies to be set for it to work.
     return res.send({"success":true});
 });

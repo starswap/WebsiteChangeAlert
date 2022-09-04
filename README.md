@@ -7,3 +7,5 @@ Will alert the user via email when a website changes in a particular way, which 
 server certs checked in for development - just basic selfsigned.
 
 Running Node Express React stack right now.
+
+Need a file called .env
