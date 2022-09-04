@@ -40,6 +40,9 @@ function MyFrame(props) {
         theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
             item.addEventListener('mouseout', mouseOut)
         );
+        theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) => {
+            item.onclick = false; //remove any existing onclicks
+        });        
         theFrame.current.contentDocument.addEventListener('click', handleClick);        
     }
 
