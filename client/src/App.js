@@ -107,12 +107,14 @@ function App() {
           <div className="column right"></div>
         </div>
         <div className='spacer' />
-        <div className='row'>
+        
+        
+        {(stepNumber === 1) &&  <div className='row'>
           <PopularUseCase src={janeSt} text="Alert me when there's a new Jane Street Puzzle!" />
           <PopularUseCase src={tesla} text="Alert me when there's a new Tesla Internship!" />
           <PopularUseCase src={bbc} text="Alert me when there's a new Prime Minister!" />
           <PopularUseCase src={duo} text="Alert me when there's a new Language Course!" />
-        </div> 
+        </div>}
         <div className='spacer' />
         {(stepNumber === 1) && <img id="hills" src={hills}/>}
       </div>

@@ -3,6 +3,7 @@
   --brand-bg: green; 
   --brand-fg: white;
   --brand-dark: rgb(7, 82, 7);  
+  --brand-dark-dark: rgb(7, 67, 7);  
 }
 
 /*Flexbox Setup*/
@@ -91,7 +92,7 @@ h3 {
 }
 
 .submitButton:hover {
-  background-color: #8c170a;
+  background-color: var(--brand-dark-dark);
 }
 
 input[type=button]:hover {
