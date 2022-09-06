@@ -3,13 +3,13 @@
     border-radius: 5px;
     border: none;
     padding: 5px 20px 5px 20px;
-    background-color: rgba(242, 179, 44, .7);
-    /*color: white;*/
+    background-color: var(--brand-dark);
+    color: white;
     font-weight: 500;
 }
 
 #another:hover {
-    background-color: orange;
+    background-color: var(--brand-dark-dark);
 }
 
 #another:focus {
