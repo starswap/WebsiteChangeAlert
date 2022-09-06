@@ -1,4 +1,4 @@
-;import { MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 
 import {config} from 'dotenv';
 config();
@@ -13,8 +13,11 @@ const client = new MongoClient(connectionString, {
 })
 
 let dbConnection = undefined;
+console.log()
 
 async function connectToServer() {
+    console
+
     await client.connect();
     if (client.err) {
         console.log("The following error occurred upon connection:")
@@ -27,6 +30,7 @@ async function connectToServer() {
 }
 
 export async function getDb() {
+    
     if (typeof dbConnection === "undefined")
         await connectToServer(console.log);
     return dbConnection;
