@@ -4,6 +4,8 @@
   --brand-fg: white;
   --brand-dark: rgb(7, 82, 7);  
   --brand-dark-dark: rgb(7, 67, 7);  
+  --back-grey: rgba(30, 29, 26, 0.2);
+  --back-grey-hover: rgba(30, 29, 26, 0.4);
 }
 
 /*Flexbox Setup*/
@@ -126,10 +128,10 @@ input[type=submit]:hover {
   border-style:none;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 100;
-  color:rgba(30, 29, 26, 0.2);
+  color: var(--back-grey);
   line-height: 130px;
 }
 
 #back:hover {
-  color:rgba(30, 29, 26, 0.4);
+  color: var(--back-grey-hover);
 }
