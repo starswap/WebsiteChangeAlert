@@ -11,11 +11,12 @@ export default function StepNumber (props) {
         
         context.textAlign = 'center';
         context.textBaseline = 'middle';
+        context.strokeStyle = '#FFFFFF';
+        context.fillStyle = '#FFFFFF';
 
         context.beginPath();
         context.arc(canvas.width/2, canvas.height/2, 30, 0, 2 * Math.PI, false);
         context.lineWidth = 3;
-        context.strokeStyle = '#000000';
         context.stroke();
         
         context.font = "40px Segoe UI";

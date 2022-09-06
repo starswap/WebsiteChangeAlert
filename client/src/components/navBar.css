@@ -1,0 +1,35 @@
+nav {
+    text-align:left;
+    padding-left: 10px;
+    background-color: var(--brand-bg);
+    color: var(--brand-fg);
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: var(--brand-fg);
+    font-size: 10pt;
+}
+
+nav a:hover {
+    color:black;
+}
+
+#title {
+    margin-top: 0px;
+    margin-bottom:0px;
+    font-family: "Tangerine",cursive;
+}
+
+#logo {
+    height: 40px;
+    padding-right: 10px;
+  }

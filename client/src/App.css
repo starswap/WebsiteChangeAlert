@@ -1,56 +1,83 @@
-.App {
-  text-align: center;
+/*Define Variables*/
+:root {
+  --brand-bg: green; 
+  --brand-fg: white;
+  --brand-dark: rgb(7, 82, 7);  
 }
 
+/*Flexbox Setup*/
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-/* .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
-
-/* .App-link {
-  color: #61dafb;
+  justify-content: flex-start;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.spacer {
+  flex-grow: 1;
+}
 
+
+/*Ensure app fills the whole screen*/
 body, html {
   margin-top: 0px;
   height: 100%;
+  width: 100%;
 }
 
 #root, .App {
   height: 100%;  
 }
 
-#title {
-  text-align:center;
-  background-color: orange;
+/*Font and heading styles*/
+h1, h2, h3 {
+  font-weight: 100;  
+}
+
+
+/*Across all screens*/
+h3 {
   margin-top: 0px;
-  margin-bottom: 0px;
-  padding: 10px 0px 10px 0px;
+}
+
+/*Main Container*/
+
+#hills {
+  margin-left:0px;
+  padding-bottom: 0px;
 }
 
 #topContainer {
   margin-top:0px;
-  background-color: rgba(242, 179, 44, .3);
-  height: 650px;
+  background-color: var(--brand-bg);
+  /* background-color:  rgba(125, 123, 117, 0.3); rgba(242, 179, 44, .3); */
+  height: 610px;
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  color: var(--brand-fg);
   /*transition: max-height 2s;*/
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+}
+
+
+/*First screen separate*/
+#tagline {
+  font-weight: 100;
+}
+
+/*Input Controls - buttons*/
 .submitButton {
   margin: 0px;
   padding: 0px;
@@ -58,30 +85,13 @@ body, html {
   
   border-radius: 0px 5px 5px 0px;
   border-style:none;
-  background-color: red;
+  background-color: var(--brand-dark);
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .submitButton:hover {
   background-color: #8c170a;
-}
-
-.urlAndEmail {
-  border-radius: 5px 0px 0px 5px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-style: none;
-  width: 400px;
-  padding: 5px 0px 5px 5px;
-
-}
-
-.urlAndEmail:focus {
-  outline:0;
-}
-
-h3 {
-  margin-top: 0px;
 }
 
 input[type=button]:hover {
@@ -92,12 +102,22 @@ input[type=submit]:hover {
   cursor: pointer;
 } 
 
+/*Input Controls - text*/
+.urlAndEmail {
+  border-radius: 5px 0px 0px 5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-style: none;
+  width: 400px;
+  padding: 5px 0px 5px 5px;
+  max-width: 80%;
 
-.grid {
-  display: grid;
-  grid-template-columns: 10% 80% 10%;
 }
 
+.urlAndEmail:focus {
+  outline:0;
+}
+
+/* Back Button */
 #back {
   font-size: 200px;
   display: inline-block;
@@ -112,37 +132,3 @@ input[type=submit]:hover {
 #back:hover {
   color:rgba(30, 29, 26, 0.4);
 }
-
-/* .right {
-  flex: 1;
-} */
-
-/* .column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-} */
-
-/* .left {
-  flex: 1;
-}  */
-
-
-/* .row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.left {
-  flex: 1;
-} */

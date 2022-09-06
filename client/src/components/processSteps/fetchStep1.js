@@ -17,7 +17,8 @@ export default function FetchStep1 (props) {
 
       return (
         <>
-          <h3>Enter the URL to AlertOnChange!</h3> 
+          
+          <h3>Enter the URL to be alerted when the site changes.</h3> 
           <form onSubmit={handleSubmit} autoComplete="off">
               <input className="urlAndEmail" type="text" value={url} onChange={handleChange} placeholder="https://..."/> 
               <input className="submitButton" type="submit" value="Fetch!"/> <br />
