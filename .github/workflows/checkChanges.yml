@@ -2,7 +2,7 @@ name: Check for Changes
 
 on:
   schedule:
-    - cron: '02 * * * *'
+    - cron: '19 * * * *'
 jobs:
   build:
 
