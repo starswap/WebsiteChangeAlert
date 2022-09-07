@@ -20,7 +20,7 @@ import NavBar from './components/navBar'
 
 import {useState} from 'react';
 
-async function submitData(url,email,emailContents,tagObject) {
+async function submitData(url,email,emailContents,tagObject,subjectLine) {
   const rawResponse = await fetch('https://127.0.0.1:3000/submit', {
     method: 'POST',
     headers: {
@@ -31,7 +31,8 @@ async function submitData(url,email,emailContents,tagObject) {
         url: url,
         email: email,
         emailContents: emailContents,
-        tagObjectString: tagObject.outerHTML.replace(/ class=""/g, "")
+        tagObjectString: tagObject.outerHTML.replace(/ class=""/g, ""),
+        subjectLine: subjectLine
       })
   });
   const content = await rawResponse.json();
@@ -45,6 +46,7 @@ function App() {
   const [email,setEmail] = useState("");
   let [emailContents,setEmailContents] = useState("");
   const [tagObject,setTagObject] = useState("");
+  let [subjectLine,setSubjectLine] = useState("");
 
   let currentStep;
   if (stepNumber === 1)
@@ -71,11 +73,14 @@ function App() {
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)
   else if (stepNumber === 4)
-    currentStep = (<FetchStep4 onChosen={ (emailContentsToSet) => {
+    currentStep = (<FetchStep4 onChosen={ (emailSubjectToSet,emailContentsToSet) => {
       setEmailContents(emailContentsToSet);
       emailContents = emailContentsToSet; //local update.
 
-      submitData(url,email,emailContents,tagObject);
+      setSubjectLine(emailSubjectToSet);
+      subjectLine = emailSubjectToSet;
+
+      submitData(url,email,emailContents,tagObject,subjectLine);
       
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)

@@ -2,6 +2,8 @@
     width: 500px;
     height: 200px;
     resize: none;
+    font-family: 'Courier New', Courier, monospace;
+
 }
 
 #emailContent:focus {
@@ -24,4 +26,20 @@
 
 #submitContent:focus {
     outline: none;
+}
+
+#subjectLine {
+    border-radius: 1px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-style: none;
+    width: 400px;
+    padding: 5px 0px 5px 5px;
+    max-width: 80%;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+#emailContainer {
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
 }
