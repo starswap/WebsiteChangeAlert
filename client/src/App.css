@@ -85,7 +85,7 @@ h3 {
   margin: 0px;
   padding: 0px;
   padding: 5px 5px 5px 5px;
-  
+  width: 50px;
   border-radius: 0px 5px 5px 0px;
   border-style:none;
   background-color: var(--brand-dark);
@@ -112,7 +112,8 @@ input[type=submit]:hover {
   border-style: none;
   width: 400px;
   padding: 5px 0px 5px 5px;
-  max-width: 80%;
+  /* max-width: 80%; */
+  flex-grow:2;
 }
 
 .urlAndEmail:focus {

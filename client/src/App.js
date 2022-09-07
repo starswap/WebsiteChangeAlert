@@ -20,7 +20,7 @@ import NavBar from './components/navBar'
 
 import {useState} from 'react';
 
-async function submitData(url,email,emailContents,tagObject,subjectLine) {
+async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
   const rawResponse = await fetch('https://127.0.0.1:3000/submit', {
     method: 'POST',
     headers: {
@@ -32,7 +32,8 @@ async function submitData(url,email,emailContents,tagObject,subjectLine) {
         email: email,
         emailContents: emailContents,
         tagObjectString: tagObject.outerHTML.replace(/ class=""/g, ""),
-        subjectLine: subjectLine
+        subjectLine: subjectLine,
+        username: name
       })
   });
   const content = await rawResponse.json();
@@ -44,6 +45,8 @@ function App() {
   const [stepNumber,setStepNumber] = useState(1);
   const [url,setUrl] = useState("");
   const [email,setEmail] = useState("");
+  const [name,setName] = useState("");
+
   let [emailContents,setEmailContents] = useState("");
   const [tagObject,setTagObject] = useState("");
   let [subjectLine,setSubjectLine] = useState("");
@@ -68,8 +71,9 @@ function App() {
       setStepNumber( (stepNo) => stepNo+1);
     }} url={url}/>)
   else if (stepNumber === 3)
-    currentStep = (<FetchStep3 onChosen={ (emailToSet) => {
+    currentStep = (<FetchStep3 onChosen={ (nameToSet,emailToSet) => {
       setEmail(emailToSet);
+      setName(nameToSet);
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)
   else if (stepNumber === 4)
@@ -79,8 +83,7 @@ function App() {
 
       setSubjectLine(emailSubjectToSet);
       subjectLine = emailSubjectToSet;
-
-      submitData(url,email,emailContents,tagObject,subjectLine);
+      submitData(url,email,emailContents,tagObject,subjectLine,name);
       
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)

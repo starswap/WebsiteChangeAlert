@@ -13,6 +13,6 @@ const collection = db.collection("alerts");
 const myCur = await collection.find();
 await myCur.forEach((record) => {
     if (changesOccurred(record.url,record.elementToTrack))
-        sendEmail(record.subject,record.emailContent,record.email);
+        sendEmail(record.username,record.subject,record.emailContent,record.email);
 });
 await close();

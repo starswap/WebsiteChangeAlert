@@ -32,7 +32,7 @@ function sendEmailWithContent(subject,htmlContent, target) {
 }
 
 
-export default function sendEmail(subject,content,toAddress) {
+export default function sendEmail(username,subject,content,toAddress) {
     fs.readFile('email_template.html', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
@@ -40,7 +40,9 @@ export default function sendEmail(subject,content,toAddress) {
         }
         let withDomain = data.replaceAll("%DOMAIN%",DOMAIN);
         let withContent = withDomain.replaceAll("%CONTENT%",content);
-        sendEmailWithContent('Website Change Alert: '+subject,withContent,toAddress)
+        let withUsername = withContent.replaceAll("%USERNAME%",username);        
+
+        sendEmailWithContent('Website Change Alert: '+subject,withUsername,toAddress)
     });    
 }
 
