@@ -16,6 +16,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - run: cd cronServer && node checkChanges.js
+    - run: cd cronserver && node checkChanges.js
   
 
