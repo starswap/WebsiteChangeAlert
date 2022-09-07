@@ -4,8 +4,7 @@ Will alert the user via email when a website changes in a particular way, which 
 - Internship applications -> check when one is released
 - Puzzles -> check when a new puzzle is released
 
-server certs checked in for development - just basic selfsigned.
-
-Running Node Express React stack right now.
-
-Need a file called .env
+## Technical Details
+- A MERN Stack is being used for this project.
+- To create your own version you would need to fork the repository and setup the MongoDB environment. Populate the .env files in server and cronserver with the correct values.
+- server certs checked in for development - just basic selfsigned.
