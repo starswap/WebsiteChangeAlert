@@ -3,13 +3,10 @@ import {config} from 'dotenv';
 import fs from 'fs';
 
 const DOMAIN = "https://website-change-alert.vercel.app";
-const CONTENT = "A new Jane Street Puzzle is available.";
 
 config();
 
-
-
-function sendEmailWithContent(subject,htmlContent) {
+function sendEmailWithContent(subject,htmlContent, target) {
     var transporter = nodemailer.createTransport({
         service: process.env.EMAIL_SERVICE,
         auth: {
@@ -20,7 +17,7 @@ function sendEmailWithContent(subject,htmlContent) {
       
       var mailOptions = {
         from: "Website Change Alert " + process.env.EMAIL_ADDRESS,
-        to: 'hamishstarling@gmail.com',
+        to: target,
         subject: subject,
         html: htmlContent
       };
@@ -35,16 +32,15 @@ function sendEmailWithContent(subject,htmlContent) {
 }
 
 
-export function sendEmail() {
+export default function sendEmail(subject,content,toAddress) {
     fs.readFile('email_template.html', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
           return;
         }
         let withDomain = data.replaceAll("%DOMAIN%",DOMAIN);
-        let withContent = withDomain.replaceAll("%CONTENT%",CONTENT);
-        sendEmailWithContent('Website Change Alert: New Jane Street Puzzle',withContent)
+        let withContent = withDomain.replaceAll("%CONTENT%",content);
+        sendEmailWithContent('Website Change Alert: '+subject,withContent,toAddress)
     });    
 }
 
-sendEmail();
