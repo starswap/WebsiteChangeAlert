@@ -1,14 +1,18 @@
 import {getDb, close} from "../server/db.js";
-import sendEmail from "email.js";
+import sendEmail from "./email.js";
+
+function changesOccurred(url, elementToTrack) {
+    return true;
+}
 
 console.log("Checking for website changes...");
 
 const db = await getDb();
 const collection = db.collection("alerts");
-console.log("The DB now looks like: ");
+
 const myCur = await collection.find();
-await myCur.forEach((a) => {
-    console.log(a);
+await myCur.forEach((record) => {
+    if (changesOccurred(record.url,record.elementToTrack))
+        sendEmail(record.subject,record.emailContent,record.email);
 });
 await close();
-
