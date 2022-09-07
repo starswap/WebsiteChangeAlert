@@ -1,6 +1,7 @@
 {
   "name": "cronserver",
   "version": "0.0.1",
+  "type": "module",
   "description": "Runs the change checks on a schedule using cron",
   "main": "checkChanges.js",
   "scripts": {

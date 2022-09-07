@@ -13,10 +13,8 @@ const client = new MongoClient(connectionString, {
 })
 
 let dbConnection = undefined;
-console.log()
 
 async function connectToServer() {
-    console
 
     await client.connect();
     if (client.err) {
@@ -34,4 +32,8 @@ export async function getDb() {
     if (typeof dbConnection === "undefined")
         await connectToServer(console.log);
     return dbConnection;
+}
+
+export async function close() {
+    await client.close();
 }
