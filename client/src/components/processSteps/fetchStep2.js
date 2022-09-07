@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect} from 'react';
+import {useRef, useEffect} from 'react';
 import './fetchStep2.css';
 
 const hoverClassName = 'blue';
@@ -6,17 +6,15 @@ const hoverClassName = 'blue';
 export default function FetchStep2 (props) {
     let url = props.url;
 
-    // const [needsReload,setNeedsReload] = useState();
-
-    async function fetchFrame() {
+    //On first render we need to reload the iframe with the correct proxied URL.
+      useEffect(() => {
         const urlMatcher = /(https?:\/\/[^/]*)\//;
         //Can we react-refactor this?
 
         document.cookie = "targetPage="+url+"; SameSite=None; Secure";
         document.cookie = "targetDomain="+url.match(urlMatcher)[1]+"; SameSite=None; Secure";
-    }
 
-      useEffect(() => {fetchFrame()},[]);
+      },[url]);
 
       return (
         <>
@@ -77,5 +75,5 @@ function MyFrame(props) {
     }
 
     //return <div height={100} width={200}></div>
-    return <iframe ref={theFrame} id={props.id} src={props.src} onLoad={handleLoad} />;
+    return <iframe title="Select an element to track." ref={theFrame} id={props.id} src={props.src} onLoad={handleLoad} />;
 }

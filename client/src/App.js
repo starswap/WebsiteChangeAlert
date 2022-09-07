@@ -43,7 +43,7 @@ function App() {
   const [stepNumber,setStepNumber] = useState(1);
   const [url,setUrl] = useState("");
   const [email,setEmail] = useState("");
-  const [emailContents,setEmailContents] = useState("");
+  let [emailContents,setEmailContents] = useState("");
   const [tagObject,setTagObject] = useState("");
 
   let currentStep;
@@ -73,8 +73,9 @@ function App() {
   else if (stepNumber === 4)
     currentStep = (<FetchStep4 onChosen={ (emailContentsToSet) => {
       setEmailContents(emailContentsToSet);
+      emailContents = emailContentsToSet; //local update.
 
-      submitData(url,email,emailContentsToSet,tagObject);
+      submitData(url,email,emailContents,tagObject);
       
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)
@@ -116,7 +117,7 @@ function App() {
           <PopularUseCase src={duo} text="Alert me when there's a new Language Course!" />
         </div>}
         <div className='spacer' />
-        {(stepNumber === 1) && <img id="hills" src={hills}/>}
+        {(stepNumber === 1) && <img alt="" id="hills" src={hills}/>}
       </div>
 
       <WhyUseThisApp />

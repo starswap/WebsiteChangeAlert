@@ -1,7 +1,7 @@
-import {useState, useRef, useEffect} from 'react';
+import {useState} from 'react';
 import './fetchStep4.css';
 
-export default function FetchStep3 (props) {
+export default function FetchStep4 (props) {
     const [emailContent,setEmailContent] = useState("");
 
     function handleChange(e) {

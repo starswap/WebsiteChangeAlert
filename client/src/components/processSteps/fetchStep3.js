@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect} from 'react';
+import {useState} from 'react';
 import './fetchStep3.css';
 
 export default function FetchStep3 (props) {

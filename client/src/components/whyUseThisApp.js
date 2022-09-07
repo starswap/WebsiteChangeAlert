@@ -5,7 +5,7 @@ export default function WhyUseThisApp() {
     return (<div id="whyContainer">
         <div className="row">
             <div className='column'>
-                <img src={smilingClock} />
+                <img src={smilingClock} alt=""/>
             </div>
             <div className='column'>
                 <h3>Why should you use this website?</h3>

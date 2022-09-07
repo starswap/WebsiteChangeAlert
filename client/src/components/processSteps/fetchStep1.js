@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react';
+import {useState} from 'react';
 import './fetchStep1.css';
 
 export default function FetchStep1 (props) {
