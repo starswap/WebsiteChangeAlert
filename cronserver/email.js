@@ -2,7 +2,12 @@ import nodemailer from 'nodemailer';
 import {config} from 'dotenv';
 import fs from 'fs';
 
+const DOMAIN = "https://website-change-alert.vercel.app";
+const CONTENT = "A new Jane Street Puzzle is available.";
+
 config();
+
+
 
 function sendEmailWithContent(subject,htmlContent) {
     var transporter = nodemailer.createTransport({
@@ -14,7 +19,7 @@ function sendEmailWithContent(subject,htmlContent) {
       });
       
       var mailOptions = {
-        from: process.env.EMAIL_ADDRESS,
+        from: "Website Change Alert " + process.env.EMAIL_ADDRESS,
         to: 'hamishstarling@gmail.com',
         subject: subject,
         html: htmlContent
@@ -36,7 +41,9 @@ export function sendEmail() {
           console.error(err);
           return;
         }
-        sendEmailWithContent('Website Change Alert: New Jane Street Puzzle',data)
+        let withDomain = data.replaceAll("%DOMAIN%",DOMAIN);
+        let withContent = withDomain.replaceAll("%CONTENT%",CONTENT);
+        sendEmailWithContent('Website Change Alert: New Jane Street Puzzle',withContent)
     });    
 }
 
