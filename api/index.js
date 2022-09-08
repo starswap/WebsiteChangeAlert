@@ -4,6 +4,8 @@ import cookies from 'cookie-parser';
 
 let app = express();
  
+console.log("Index imported")
+
 //Express Middleware
 app.use(cookies()); //parse cookies
 

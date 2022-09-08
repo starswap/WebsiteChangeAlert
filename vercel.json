@@ -3,8 +3,8 @@
     "outputDirectory": "client/build",
     "installCommand": "npm install",
     "rewrites": [
-        {"source": "/(.*)", "destination": "/api"},
+        {"source": "/submit", "destination": "/api/submit"},
         {"source": "/proxyPage", "destination": "/api/proxyPage"},
-        {"source": "/submit", "destination": "/api/submit"}
+        {"source": "/(.*)", "destination": "/api"}
     ]
 }

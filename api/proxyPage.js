@@ -4,6 +4,8 @@ import express from 'express';
 
 let app = express();
  
+console.log("Proxy imported")
+
 //Express Middleware
 app.use(cookies()); //parse cookies
 
