@@ -1,0 +1,11 @@
+{
+    "name": "Website Change Alert",
+    "version": "0.1.0",
+    "dependencies": {
+    },
+    "scripts": {
+        "start": "node index.js",
+        "install": "cd client && npm install && cd ../common && npm install && cd ../api && npm install",
+        "build-frontend": "cd client npm run build"
+    }
+}
