@@ -4,7 +4,7 @@ import express from'express';
 import https from 'https';
 import fs from 'fs';
 import cookies from 'cookie-parser';
-import {getDb} from './db.js';
+import {getDb} from '../common/db.js';
 
 
 const app = express();
