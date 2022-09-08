@@ -33,3 +33,5 @@ app.get('/proxyPage', async (req,res) => {
         return res.send('Set targetDomain and targetPage cookies first.');
     }
 })
+
+export default app;
