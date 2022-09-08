@@ -5,7 +5,6 @@ config();
 
 const connectionString = process.env.ATLAS_URI;
 const dbName = process.env.DB_NAME;
-console.log(connectionString);
 
 const client = new MongoClient(connectionString, {
     useNewUrlParser: true,
