@@ -9,7 +9,7 @@ const PORT = 3000;
 //Express Middleware
 app.use(cookies()); //parse cookies
 app.use(express.json());
-
+console.log("serverless index was imported")
 
 app.post('/submit', async (req, res) => {
     let cleanedObject = {
@@ -37,6 +37,7 @@ app.post('/submit', async (req, res) => {
 
 //proxy page; requested via cookies.
 app.get('/proxyPage', async (req,res) => {
+    console.log("You triggered the page proxy!")
     if (typeof req.cookies.targetPage !== 'undefined') { //we have a target page
         let proxyURL = req.cookies.targetPage;
         let targetText;
