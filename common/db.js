@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 
 import {config} from 'dotenv';
+
 config();
 
 const connectionString = process.env.ATLAS_URI;
@@ -11,10 +12,9 @@ const client = new MongoClient(connectionString, {
     useUnifiedTopology: true,
 })
 
-let dbConnection = undefined;
+global.mongoConnection = undefined;
 
 async function connectToServer() {
-
     await client.connect();
     if (client.err) {
         console.log("The following error occurred upon connection:")
@@ -22,15 +22,18 @@ async function connectToServer() {
     }
     else {
         console.log("Successfully connected to Mongo");
-        dbConnection = client.db(dbName);
+        global.mongoConnection = client.db(dbName);
     }
 }
 
 export async function getDb() {
     
-    if (typeof dbConnection === "undefined")
-        await connectToServer(console.log);
-    return dbConnection;
+    if (typeof global.mongoConnection === "undefined") {
+        console.log("Connecting again")
+        await connectToServer();
+    }
+        
+    return global.mongoConnection;
 }
 
 export async function close() {
