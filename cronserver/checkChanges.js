@@ -1,4 +1,4 @@
-import {getDb, close} from "../server/db.js";
+import {getDb, close} from "../common/db.js";
 import sendEmail from "./email.js";
 import fetch from 'node-fetch'; 
 

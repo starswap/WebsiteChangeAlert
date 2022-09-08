@@ -1,0 +1,16 @@
+{
+    "name": "api",
+    "version": "0.1.0",
+    "type": "module",
+    "private": true,
+    "dependencies": {
+        "mongodb": "^4.9.1"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "build-frontend": "npm install && cd ../client && npm install && npm run build"
+    },
+    "devDependencies": {
+        "dotenv": "^16.0.2"
+    }
+}
