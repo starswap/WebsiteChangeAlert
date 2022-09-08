@@ -8,6 +8,7 @@ Some use cases include:
 - Internship Applications --- Get notified when a company starts accepting applications.
 - Puzzles --- Get notified when a new puzzle is released.
 - News Updates -- Get news updates about a very particular topic which you find interesting by conditionally tracking a news website.
+
 ... and many more.
 
 Each of these uses could of course easily be accomplished manually and individually, however when a user has many URLs to check and keep track of every day, it can be overwhelming. Having an automated service to do this for you gives peace of mind and saves time. 
