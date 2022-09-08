@@ -16,10 +16,6 @@ app.use(cookies()); //parse cookies
 app.use(express.json());
 app.use(express.static('../client/build')); //serve statically deployed frontend after React compilation
 
-//Serve static main page
-app.get('/home', (req, res) => {
-    res.sendFile(path.resolve('../client/build', 'index.html'))
-});
 
 app.post('/submit', async (req, res) => {
     let cleanedObject = {
