@@ -3,7 +3,8 @@ import express from'express';
 import cookies from 'cookie-parser';
 import {getDb} from '../common/db.js';
 
-export const app = express();
+let app = express();
+ 
 const PORT = 3000;
 
 //Express Middleware
@@ -96,3 +97,5 @@ app.get(/(.*)/, async (req,res) => {
         return res.send('Set targetDomain and targetPage cookies first.');
     }    
 })
+
+export default app;
