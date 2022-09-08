@@ -20,8 +20,11 @@ import NavBar from './components/navBar'
 
 import {useState} from 'react';
 
+//const DOMAIN = "https://127.0.0.1:3000";
+const DOMAIN = "https://website-change-alert.vercel.app";
+
 async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
-  const rawResponse = await fetch('https://127.0.0.1:3000/submit', {
+  const rawResponse = await fetch(DOMAIN+'/submit', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

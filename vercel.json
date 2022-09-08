@@ -1,0 +1,6 @@
+{
+    "buildCommand": "cd client && npm run build",
+    "outputDirectory": "client/build",
+    "installCommand": "cd client && npm install",
+    "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+}

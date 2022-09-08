@@ -3,15 +3,12 @@ import express from'express';
 import cookies from 'cookie-parser';
 import {getDb} from '../common/db.js';
 
-
 export const app = express();
 const PORT = 3000;
 
 //Express Middleware
 app.use(cookies()); //parse cookies
 app.use(express.json());
-app.use(express.static('../client/build')); //serve statically deployed frontend after React compilation
-
 
 app.post('/submit', async (req, res) => {
     let cleanedObject = {
@@ -97,17 +94,3 @@ app.get(/(.*)/, async (req,res) => {
         return res.send('Set targetDomain and targetPage cookies first.');
     }    
 })
-
-//Create a server running on HTTPS to avoid any issues with secure cookies.
-
-
-
-
-
-// app.use((req, res, next) => {  
-//     res.append('Access-Control-Allow-Origin', ['https://localhost:3000']);
-//     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.append('Access-Control-Allow-Headers', 'Content-Type');
-//     res.append('Access-Control-Allow-Credentials', 'true');
-//     next();
-// });
