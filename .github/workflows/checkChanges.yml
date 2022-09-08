@@ -5,10 +5,7 @@ on:
   schedule:
     - cron: '19 * * * *'
   workflow_dispatch:
-  push:
-    branches:
-    - 'actions-branch'
-  
+
 jobs:
   build:
 
@@ -16,7 +13,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - run: cd cronserver && node checkChanges.js
+    - run: cd cronserver && npm install && node checkChanges.js
       env:
         ATLAS_URI: ${{secrets.ATLAS_URI}}
         DB_NAME: ${{secrets.DB_NAME}}
