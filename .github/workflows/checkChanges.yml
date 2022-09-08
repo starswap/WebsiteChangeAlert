@@ -17,5 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: cd cronserver && node checkChanges.js
+      env:
+        ATLAS_URI: ${{secrets.ATLAS_URI}}
+        DB_NAME: ${{secrets.DB_NAME}}
+        EMAIL_ADDRESS: ${{secrets.EMAIL_ADDRESS}}
+        EMAIL_PASSWORD: ${{secrets.EMAIL_PASSWORD}}
+        EMAIL_SERVICE: ${{secrets.EMAIL_SERVICE}}
+
   
 
