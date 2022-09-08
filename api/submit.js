@@ -1,7 +1,9 @@
-import {getDb} from '../common/db.js';
+import {getDb,close} from '../common/db.js';
 import express from 'express';
 
 let app = express();
+
+const db = await getDb();
 
 app.use(express.json());
 app.post('/submit', async (req, res) => {
@@ -15,16 +17,18 @@ app.post('/submit', async (req, res) => {
     }
     console.log("Request to Notify Received");
     console.log(cleanedObject);
-
-    const db = await getDb();
     
     //db.createCollection("alerts")
     const collection = db.collection("alerts");
     await collection.insertOne(cleanedObject);
     console.log("The DB now looks like: ");
-    console.log(collection.find().forEach(console.log));
+    let content = await collection.find().forEach(console.log);
+
+    console.log(content);
 
     res.status(200);
+    
+    close();
     return res.send({"success":true});
 });
 

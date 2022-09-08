@@ -20,7 +20,7 @@ import NavBar from './components/navBar'
 
 import {useState} from 'react';
 
-//const DOMAIN = "https://127.0.0.1:3000";
+//const DOMAIN = "http://127.0.0.1:3000";
 const DOMAIN = "https://website-change-alert.vercel.app";
 
 async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
