@@ -13,7 +13,8 @@ app.post('/submit', async (req, res) => {
         elementToTrack: req.body.tagObjectString,
         emailContent: req.body.emailContents,
         subject: req.body.subjectLine,
-        username: req.body.username
+        username: req.body.username,
+        fired: false
     }
     console.log("Request to Notify Received");
     console.log(cleanedObject);
