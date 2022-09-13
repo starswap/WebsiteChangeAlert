@@ -18,7 +18,7 @@ export default function FetchStep2 (props) {
 
       return (
         <>
-            <h3>Click on the element to scan for changes to.</h3> 
+            <h3><i>Right Click</i> on the element to scan for changes to.</h3> 
             <MyFrame id="elementPickFrame" src='./proxyPage' clickEvent={props.onChosen}/>
         </>
       ) 
@@ -93,10 +93,10 @@ function MyFrame(props) {
         theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
             item.addEventListener('mouseout', mouseOut)
         );
-        theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) => {
-            item.onclick = false; //remove any existing onclicks
-        });        
-        theFrame.current.contentDocument.addEventListener('click', handleClick);        
+        // theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) => {
+        //     item.onclick = false; //remove any existing onclicks
+        // });        
+        theFrame.current.contentDocument.addEventListener('contextmenu',handleClick);
     }
 
     function mouseIn(event) {
@@ -117,8 +117,10 @@ function MyFrame(props) {
         let theObject = theFrame.current.contentDocument.body.previous;
         theObject.classList.remove(hoverClassName);
         props.clickEvent(theObject);
+        return false;
     }
-    
+
+
     function removeListeners() {
         theFrame.current.contentDocument.querySelectorAll('*').forEach( (item) =>
             item.removeEventListener('mouseover', mouseIn)
