@@ -2,6 +2,7 @@
 :root {
   --brand-bg: green; 
   --brand-fg: white;
+  --brand-light: rgb(3, 179, 3);
   --brand-dark: rgb(7, 82, 7);  
   --brand-dark-dark: rgb(7, 67, 7);  
   --back-grey: rgba(30, 29, 26, 0.2);
@@ -24,7 +25,7 @@
 }
 
 .spacer {
-  flex-grow: 1;
+  flex-grow: 2;
 }
 
 

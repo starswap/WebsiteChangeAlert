@@ -1,4 +1,4 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState } from 'react';
 import './fetchStep2.css';
 
 const hoverClassName = 'blue';
@@ -24,10 +24,65 @@ export default function FetchStep2 (props) {
       ) 
 }
 
+function LoadIndicator(props) {
+
+    const canvasRef = useRef(null);
+    const [startAngle,setStartAngle] = useState(0);
+
+    function drawNumberCircle() {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d')
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        
+
+        context.strokeStyle = '#FFFFFF';
+        context.fillStyle = '#FFFFFF';
+        context.setLineDash([5,3]);
+
+
+        context.beginPath();
+        context.arc(canvas.width/2, canvas.height/2, 30, startAngle, startAngle+2 * Math.PI, false);
+        context.lineWidth = 3;
+        context.stroke();
+        
+        context.font = "40px Segoe UI";
+    }
+
+
+    const timeInterval = 50;
+    const angleDelta = 0.05;
+    useEffect(() => {
+        let interval = setInterval(
+            () => {setStartAngle((prevAngle => prevAngle+angleDelta))}
+        ,timeInterval);
+        
+        return () => {clearInterval(interval)};
+    },[]);
+
+    useEffect(drawNumberCircle, [startAngle]); //On first render only.
+
+
+    return (<div style={{display: (props.hidden) ? "none" : "block"}} id="frameLoadPlaceholder">
+        <div id="spacerTop"></div>
+            <canvas ref={canvasRef} height={100}></canvas>
+            <p>Just loading that page for you; hold on tight.</p>
+            <div class="spacer"></div>
+            <a href="https://xkcd.com/612/"><img style={{height:250}} src="https://imgs.xkcd.com/comics/estimation.png" alt="An XKCD comic about progress estimation."/></a>
+            <p>(Courtesy of <a id="xkcdLink" href="https://xkcd.com/612/">XKCD</a>)</p>
+            <div class="spacer"></div>
+        </div>)
+}
+
+
 function MyFrame(props) {
     let theFrame = useRef(null);
+    const [loadHidden,setLoadHidden] = useState(false);
+    const [frameHidden,setFrameHidden] = useState(true);
 
     function handleLoad() {
+        setLoadHidden(true);
+        setFrameHidden(false);
+
         let hoverClassCSS = '.blue {background-color: blue !important; background-image:none !important;}';
         let style = document.createElement('style');
         style.appendChild(document.createTextNode(hoverClassCSS));
@@ -75,5 +130,10 @@ function MyFrame(props) {
     }
 
     //return <div height={100} width={200}></div>
-    return <iframe title="Select an element to track." ref={theFrame} id={props.id} src={props.src} onLoad={handleLoad} />;
+    return (
+        <>
+            <LoadIndicator hidden={loadHidden}/>
+            <iframe title="Select an element to track." ref={theFrame} id={props.id} src={props.src} onLoad={handleLoad} hidden={frameHidden}/>
+        </>
+    );
 }

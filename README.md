@@ -27,8 +27,8 @@ Each of these uses could of course easily be accomplished manually and individua
 6. Reduce the likelihood of emails going to Junk
 7. Add a section detailing recent use cases of the app (not hard-coded), updating every time a user creates a new trigger.
     "Auto image"
-8. Update the Database to cleanup once a change is noted to the site so that the triggers are reusable and not once-only.
-9. Add a loading image to the iframe before it has loaded since it is slow on vercel; try to improve caching to speed up.
+8. Update the Database to cleanup once a change is noted to the site so that the triggers are reusable and not once-only. 
+9. ~~Add a loading image to the iframe before it has loaded since it is slow on vercel; try to improve caching to speed up.~~ ✔️
 10. Support mobile devices with responsive design and PWA integration.
 11. Add more ways to notify such as discord integration.
 12. Add screenshots to emails?

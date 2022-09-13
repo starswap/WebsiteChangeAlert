@@ -1,9 +1,28 @@
- #elementPickFrame {
+ #elementPickFrame,#frameLoadPlaceholder {
     width: 720px;
     height: 450px; 
     border-radius: 3px;
+    border-style: solid;
+    border-width: 2px;
+    margin-top: 0px;    
     /* overflow: hidden; */
 } 
+
+#frameLoadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--brand-dark);
+}
+
+#spacerTop {
+  flex-grow: 1;
+}
+
+#xkcdLink {
+  text-decoration: none;
+  color: var(--brand-light);
+}
 
 /* width */
 ::-webkit-scrollbar {
