@@ -1,0 +1,33 @@
+
+#BottomBar {
+    background-color: rgb(233, 231, 231);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#madeWithText {
+    font-size: 20pt;
+    font-family: serif;
+    font-style: italic;
+}
+.techStackImage {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#openSourceLink {
+    display: inline-block;
+    background-color: transparent;
+    text-decoration: none;
+    border-style:none;
+    font-weight: 100;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: rgb(90, 85, 85);
+}
+
+#openSourceLink:hover {
+  color: rgb(57, 53, 53);
+}
+
+#openSourcePara {
+    margin: 0px;
+}
