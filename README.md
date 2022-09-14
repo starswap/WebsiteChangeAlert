@@ -33,6 +33,7 @@ Each of these uses could of course easily be accomplished manually and individua
 11. Add more ways to notify such as discord integration.
 12. Add screenshots to emails?
 13. Add CAPTCHA?
+14. Add responsive design (support for mobile.)
 
 ## Technical Details
 - MongoDB, Express, React, Node.js (MERN Stack).
