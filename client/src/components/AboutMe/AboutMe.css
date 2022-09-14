@@ -1,0 +1,43 @@
+#myline {
+    width: 300px;
+    font-size: 20pt;
+    font-style: italic;
+}
+
+#me {
+    border-radius: 5px;
+}
+
+#socials {
+    width: 100%;
+}
+
+#socials a {
+    width: 50px;
+}
+
+.surroundingButton {
+    background-color: rgb(236, 231, 231);
+    box-shadow: 3px 5px var(--brand-dark);
+    border-radius: 100%;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.surroundingButton:hover {
+    box-shadow: 1px 2px var(--brand-dark);
+}
+
+.surroundingButton img {
+    width: 50% !important;
+    margin: auto;
+}
+
+
+#socials a img {
+    width:100%;
+}
+
