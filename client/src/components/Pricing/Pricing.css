@@ -1,0 +1,55 @@
+#price {
+    font-size: 50pt;
+    line-height: 50pt;
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+}
+
+#priceCard {
+    width: 200px;
+    background-color: white;
+    height: 90%;
+    border-radius: 10px;
+    border-style: solid;
+}
+
+.pricingFeatures {
+    font-size: 8pt;
+    text-align: left;
+    width: 100%;
+}
+
+.pricingOption {
+    margin-bottom: 0px;    
+}
+
+#priceCard ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.pricingTitle {
+    font-weight: 100;
+    font-family: Calibri, Arial, sans-serif;
+    /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+}
+
+#tryItButton {
+    background-color: var(--brand-bg);
+    color: white;
+    border:2px solid black;
+    border-radius: 4px;
+    font-size: 10pt;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;    
+    text-decoration: none;
+}
+
+#tryItButton:hover {
+    cursor:pointer;
+    background-color: var(--brand-dark);
+}
