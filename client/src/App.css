@@ -7,6 +7,7 @@
   --brand-dark-dark: rgb(7, 67, 7);  
   --back-grey: rgba(30, 29, 26, 0.2);
   --back-grey-hover: rgba(30, 29, 26, 0.4);
+  --brand-bg-light: rgb(203, 246, 203);
 }
 
 /*Flexbox Setup*/
@@ -135,4 +136,22 @@ input[type=submit]:hover {
 
 #back:hover {
   color: var(--back-grey-hover);
+}
+
+
+/*Parts of the homepage*/
+
+.panel {
+  height: 350px;
+  padding-top:25px;
+  padding-bottom:25px;  
+}
+.panel:nth-child(even) {
+  background-color: white;
+}
+.panel:nth-child(odd) {
+  background-color: var(--brand-bg-light);
+}
+.flexCenter {
+  align-items: center;
 }

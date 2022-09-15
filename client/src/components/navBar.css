@@ -13,7 +13,7 @@ nav {
 }
 
 nav a {
-    margin-right: 10px;
+    margin-right: 20px;
     text-decoration: none;
     color: var(--brand-fg);
     font-size: 10pt;

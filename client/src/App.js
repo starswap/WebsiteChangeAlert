@@ -14,9 +14,13 @@ import FetchStep5 from './components/processSteps/fetchStep5';
 import StepNumber from './components/processSteps/stepNumber';
 
 import PopularUseCase from './components/popularUseCase';
-import WhyUseThisApp from './components/whyUseThisApp';
+import WhyUseThisApp from './components/About/whyUseThisApp';
+import FAQ from './components/FAQ/FAQ';
+import Pricing from './components/Pricing/Pricing';
+import AboutMe from './components/AboutMe/AboutMe';
 
 import NavBar from './components/navBar'
+import BottomBar from './components/BottomBar/BottomBar';
 
 import {useState} from 'react';
 
@@ -132,6 +136,12 @@ function App() {
       </div>
 
       <WhyUseThisApp />
+      <FAQ />
+      <Pricing />
+      <AboutMe />
+
+      <BottomBar />
+ 
       
     </div>
 
