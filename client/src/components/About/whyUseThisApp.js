@@ -1,8 +1,8 @@
-import smilingClock from '../assets/smilingClock.png';
+import smilingClock from '../../assets/smilingClock.png';
 import "./whyUseThisApp.css";
 
 export default function WhyUseThisApp() {
-    return (<div id="whyContainer">
+    return (<div id="About" className='panel'>
         <div className="row">
             <div className='column'>
                 <img src={smilingClock} alt=""/>
