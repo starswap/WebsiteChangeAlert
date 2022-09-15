@@ -1,0 +1,10 @@
+#aboutMeLink {
+    text-decoration: none;
+    color: var(--brand-bg);
+}
+#aboutMeLink:hover {
+    color: var(--brand-dark);
+}
+#FAQ_List {
+    margin-top: 0px;
+}
