@@ -20,7 +20,7 @@ Each of these uses could of course easily be accomplished manually and individua
     Then make release 0.1.0
 0. [Fix up the code to make it more maintainable]
 1. Support different time periods to check on.
-2. Support apps rendered with client side JS such as React, e.g. through Puppeteer
+2. Support apps rendered with client side JS such as React, by running JS in jalied sandbox
 3. Support conditional triggers so a new internship only causes an alert if it's in the UK, for example.
 4. Allow users to login and save their details in order to save time when setting up alerts.
 5. Allow users to delete alerts once they are setup (without needing to delve into the DB!).
