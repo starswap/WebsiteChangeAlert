@@ -24,11 +24,8 @@ import BottomBar from './components/BottomBar/BottomBar';
 
 import {useState} from 'react';
 
-//const DOMAIN = "http://127.0.0.1:3000";
-const DOMAIN = "https://website-change-alert.vercel.app";
-
 async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
-  const rawResponse = await fetch(DOMAIN+'/submit', {
+  const rawResponse = await fetch('/submit', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
