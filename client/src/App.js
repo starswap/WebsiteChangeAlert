@@ -37,7 +37,8 @@ async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
         emailContents: emailContents,
         tagObjectString: tagObject.outerHTML.replace(/ class=""/g, ""),
         subjectLine: subjectLine,
-        username: name
+        username: name,
+        id:tagObject.id
       })
   });
   const content = await rawResponse.json();

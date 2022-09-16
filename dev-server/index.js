@@ -24,6 +24,7 @@ app.post('/submit', async (req, res) => {
         emailContent: req.body.emailContents,
         subject: req.body.subjectLine,
         username: req.body.username,
+        id: req.body.id,
         fired: false
     }
     console.log("Request to Notify Received");
