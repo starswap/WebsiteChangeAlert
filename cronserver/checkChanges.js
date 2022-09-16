@@ -2,9 +2,26 @@ import {getDb, close} from "../common/db.js";
 import sendEmail from "./email.js";
 import fetch from 'node-fetch'; 
 
+function stringMatch(string,pattern) {
+    for (let i=0;i<string.length;++i) {
+        let found = true;
+        for (let j=0;j<pattern.length;++j) {
+            if (string[i+j] != pattern[j]){
+                found = false;
+                break;
+            }
+        }
+        if (found == true) {
+            return true;
+        }
+    }
+    return false;
+} 
+
 async function hasTheWebsiteChanged(url, elementToTrack) {
     let targetContent = await fetch(url).then((response) => {return response.text()});
-    if (targetContent.match(elementToTrack) === null) { //target element no longer on page in desired form
+    
+    if (!stringMatch(targetContent,elementToTrack)) { //target element no longer on page in desired form
         return true;
     }
     else {
