@@ -81,7 +81,6 @@ async function updateOneAlert(alert,collection,htmlResponse) {
     }
     else  { 
         const correspondingElementViaPosn = getElementFromChildIndex(document,alert.childIndexArray);
-        console.log(correspondingElementViaPosn.cloneNode().outerHTML)
         if (correspondingElementViaPosn !== false && correspondingElementViaPosn.cloneNode().outerHTML === alert.justTagString) {
             // if the element at that position on the page is still the same tag, then we can now track that.
             updateDoc = {
