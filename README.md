@@ -14,10 +14,10 @@ Some use cases include:
 Each of these uses could of course easily be accomplished manually and individually, however when a user has many URLs to check and keep track of every day, it can be overwhelming. Having an automated service to do this for you gives peace of mind and saves time. 
 
 ## Feature Roadmap
--1. Make it not trigger every hour after a change, and allow triggers to be reused once the site has changed.
+-1. ~~Make it not trigger every hour after a change, and allow triggers to be reused once the site has changed.
     ID or same outer HTML
-    Mention in email if it could be reused.
-    Then make release 0.1.0
+    Mention in email if it could be reused.~~ ✔️
+
 0. [Fix up the code to make it more maintainable]
 1. Support different time periods to check on.
 2. Support apps rendered with client side JS such as React, by running JS in jalied sandbox
@@ -26,9 +26,9 @@ Each of these uses could of course easily be accomplished manually and individua
 5. Allow users to delete alerts once they are setup (without needing to delve into the DB!).
 6. Reduce the likelihood of emails going to Junk
 7. Add a section detailing recent use cases of the app (not hard-coded), updating every time a user creates a new trigger.
-    "Auto image"
-8. Update the Database to cleanup once a change is noted to the site so that the triggers are reusable and not once-only. 
-9. ~~Add a loading image to the iframe before it has loaded since it is slow on vercel; try to improve caching to speed up.~~ ✔️
+    "Auto image" - or maybe with a push notification like you see on some websites, in the corner.
+8. ~~Update the Database to cleanup once a change is noted to the site so that the triggers are reusable and not once-only.~~ ✔️
+9. ~~Add a loading image to the iframe before it has loaded since it is slow on vercel;~~ ✔️ try to improve caching to speed up.
 10. Support mobile devices with responsive design and PWA integration.
 11. Add more ways to notify such as discord integration.
 12. Add screenshots to emails?
@@ -36,6 +36,7 @@ Each of these uses could of course easily be accomplished manually and individua
 14. Add responsive design (support for mobile.)
 15. Allow logged in users to save their email address to save time (or just allow autofill)
 16. Display tag name which is currently highlighted below the iframe.
+17. Make a release
 
 ## Technical Details
 - MongoDB, Express, React, Node.js (MERN Stack).
