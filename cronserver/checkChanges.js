@@ -35,11 +35,14 @@ async function updateOneAlert(alert,collection,htmlResponse) {
     // If the website has changed and the alert has fired, we need to stop it from firing again at every subsequent run of this script, because that's annoying for the customer.
 
     const { document } = (new JSDOM(htmlResponse)).window;
-    const correspondingElement = document.getElementById(alert.id);
+    const correspondingElement = null;
+    if (alert.id !== "")
+        correspondingElement = document.getElementById(alert.id);
+    
     let updateDoc;
     let wasAbleToUpdate;
 
-    if (correspondingElement !== null) {
+    if (correspondingElement !== null) { //If there is still an object with the same ID on the page, we can now track that object
         updateDoc = {
             $set: {
                 fired: correspondingElement.outerHTML
