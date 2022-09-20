@@ -9,6 +9,7 @@
   },
   "author": "Hamish Starling",
   "dependencies": {
+    "jsdom": "^20.0.0",
     "node-fetch": "^3.2.10",
     "nodemailer": "^6.7.8"
   },

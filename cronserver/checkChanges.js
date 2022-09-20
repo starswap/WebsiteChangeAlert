@@ -1,6 +1,36 @@
 import {getDb, close} from "../common/db.js";
 import sendEmail from "./email.js";
 import fetch from 'node-fetch'; 
+import { JSDOM } from 'jsdom';
+
+
+function stringMatch(string,pattern) {
+    for (let i=0;i<string.length;++i) {
+        let found = true;
+        for (let j=0;j<pattern.length;++j) {
+            if (string[i+j] != pattern[j]){
+                found = false;
+                break;
+            }
+        }
+        if (found == true) {
+            return true;
+        }
+    }
+    return false;
+} 
+
+function getElementFromChildIndex(document,childIndexArray) {
+    let htmlElement = document.getElementsByTagName("body")[0];
+    for (let index of childIndexArray) {
+        if (htmlElement.children.length <= index) {
+            return false; //not possible to resolve.
+        } else {
+            htmlElement = htmlElement.children[index];
+        }
+    }
+    return htmlElement;
+}
 
 function stringMatch(string,pattern) {
     for (let i=0;i<string.length;++i) {
@@ -22,36 +52,69 @@ async function hasTheWebsiteChanged(url, elementToTrack) {
     let targetContent = await fetch(url).then((response) => {return response.text()});
     
     if (!stringMatch(targetContent,elementToTrack)) { //target element no longer on page in desired form
-        return true;
+        return [ true, targetContent ];
     }
     else {
-        return false;
+        return [ false, targetContent ];
     }
 }
 
-async function updateOneAlert(alert,collection) {
+async function updateOneAlert(alert,collection,htmlResponse) {
     // If the website has changed and the alert has fired, we need to stop it from firing again at every subsequent run of this script, because that's annoying for the customer.
 
-    const updateDoc = {
-        $set: {
-          fired: true
-        },
-      };
+    const { document } = (new JSDOM(htmlResponse)).window;
+    let correspondingElement = null;
+    if (alert.id !== "")
+        correspondingElement = document.getElementById(alert.id);
+    
+    let updateDoc;
+    let wasAbleToUpdate;
 
+    if (correspondingElement !== null) { //If there is still an object with the same ID on the page, we can now track that object
+        updateDoc = {
+            $set: {
+                elementToTrack: correspondingElement.outerHTML.replace(/ class=""/g, ""),
+                justTagString: correspondingElement.cloneNode().outerHTML.replace(/ class=""/g, "")
+            },
+        };
+        wasAbleToUpdate = true;
+    }
+    else  { 
+        const correspondingElementViaPosn = getElementFromChildIndex(document,alert.childIndexArray);
+        console.log(correspondingElementViaPosn.cloneNode().outerHTML)
+        if (correspondingElementViaPosn !== false && correspondingElementViaPosn.cloneNode().outerHTML === alert.justTagString) {
+            // if the element at that position on the page is still the same tag, then we can now track that.
+            updateDoc = {
+                $set: {
+                    elementToTrack: correspondingElementViaPosn.outerHTML.replace(/ class=""/g, ""),
+                    justTagString: correspondingElementViaPosn.cloneNode().outerHTML.replace(/ class=""/g, "")
+                },
+            };
+            wasAbleToUpdate = true;
+        }
+        else {
+            updateDoc = {
+                $set: {
+                  fired: true
+                },
+            };        
+            wasAbleToUpdate = false;
+        }
+    }
     await collection.updateOne(alert, updateDoc);    
     console.log("Updated alert.");
-    return true;
+    return wasAbleToUpdate;
 }
 
 async function processOneAlert(alert,collection) {
     //Check for changes
     if (alert.fired === false) { //, but only if this alert hasn't already fired
-        const has_changed = await hasTheWebsiteChanged(alert.url,alert.elementToTrack);
+        const [ has_changed, htmlResponse ] = await hasTheWebsiteChanged(alert.url,alert.elementToTrack);
 
         if (has_changed) {
             console.log(" - Change occurred to: " + alert.url);
-            sendEmail(alert.username,alert.subject,alert.emailContent,alert.email);
-            await updateOneAlert(alert,collection); // cleanup the alert after change so it won't fire again until another change occurs.
+            const wasAbleToUpdate = await updateOneAlert(alert,collection,htmlResponse); // cleanup the alert after change so it won't fire again until another change occurs.
+            sendEmail(alert.username,alert.subject,alert.emailContent,alert.email,wasAbleToUpdate);
         } else {
             console.log(" - No Change to: " + alert.url);
         }       

@@ -14,7 +14,10 @@ app.post('/submit', async (req, res) => {
         emailContent: req.body.emailContents,
         subject: req.body.subjectLine,
         username: req.body.username,
-        fired: false
+        id: req.body.id,
+        fired: false,
+        childIndexArray: req.body.childIndexArray,
+        justTagString: req.body.justTagString
     }
     console.log("Request to Notify Received");
     console.log(cleanedObject);
