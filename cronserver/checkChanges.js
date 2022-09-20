@@ -1,76 +1,34 @@
 import {getDb, close} from "../common/db.js";
 import sendEmail from "./email.js";
-import fetch from 'node-fetch'; 
-import { JSDOM } from 'jsdom';
+import jailed from "jailed";
 
 
-function stringMatch(string,pattern) {
-    for (let i=0;i<string.length;++i) {
-        let found = true;
-        for (let j=0;j<pattern.length;++j) {
-            if (string[i+j] != pattern[j]){
-                found = false;
-                break;
-            }
-        }
-        if (found == true) {
-            return true;
-        }
-    }
-    return false;
-} 
+var path = "./sandboxedDOM.js";
+var sandbox = new jailed.sandbox(path);
 
-function getElementFromChildIndex(document,childIndexArray) {
-    let htmlElement = document.body;
-    for (let index of childIndexArray) {
-        console.log(htmlElement);
-        if (htmlElement.children.length <= index) {
-            return false; //not possible to resolve.
-        } else {
-            htmlElement = htmlElement.children[index];
-        }
-    }
-    return htmlElement;
-}
+sandbox.whenConnected(checkforChanges);
 
-async function fetchAndBuildDOM(url) {
-    let htmlResponse = await fetch(url).then((response) => {return response.text()});
-    // const options = {
-    //     runScripts: "dangerously",
-    //     resources: "usable",
-    //     url: url
-//    }
-    const options = {};
 
-    const { document } = (new JSDOM(htmlResponse, options)).window;
-    return document;
-}
-
-async function hasTheWebsiteChanged(document, elementToTrack) {
-    if (!stringMatch(document.body.outerHTML,elementToTrack)) { //target element no longer on page in desired form
-        return true;
-    }
-    else {
-        return false;
-    }
-}
 
 async function updateOneAlert(alert,collection,document) {
     // If the website has changed and the alert has fired, we need to stop it from firing again at every subsequent run of this script, because that's annoying for the customer.
     let updateDoc = {$set: {}};
     let updateSuccess;
 
-    const correspondingElementViaId = document.getElementById(alert.id);
-    const correspondingElementViaPosn = getElementFromChildIndex(document,alert.childIndexArray);
+    const correspondingElementViaId = sandbox.remote.getElementOuterHTMLById(alert.id);
+    const correspondingElementViaIdJustTag = sandbox.remote.getElementTagTextById(alert.id);
+    const correspondingElementViaPosn = sandbox.remote.getElementOuterHTMLFromChildIndex(document,alert.childIndexArray);
+    const correspondingElementViaPosnJustTag = sandbox.remote.getElementTagTextFromChildIndex(document,alert.childIndexArray);
+
 
     if (alert.id !== "" && correspondingElementViaId !== null) { // Can update the alert via the ID method.
-        updateDoc.$set.elementToTrack = correspondingElementViaId.outerHTML.replace(/ class=""/g, "");
-        updateDoc.$set.justTagString = correspondingElementViaId.cloneNode().outerHTML.replace(/ class=""/g, "");
+        updateDoc.$set.elementToTrack = correspondingElementViaId.replace(/ class=""/g, "");
+        updateDoc.$set.justTagString = correspondingElementViaIdJustTag.replace(/ class=""/g, "");
         updateSuccess = true;
     }
-    else if (correspondingElementViaPosn !== false && correspondingElementViaPosn.cloneNode().outerHTML === alert.justTagString) { // Can update alert via the position on page method. 
-        updateDoc.$set.elementToTrack = correspondingElementViaPosn.outerHTML.replace(/ class=""/g, "");
-        updateDoc.$set.justTagString = correspondingElementViaPosn.cloneNode().outerHTML.replace(/ class=""/g, "");
+    else if (correspondingElementViaPosn !== false && correspondingElementViaPosn === alert.justTagString) { // Can update alert via the position on page method. 
+        updateDoc.$set.elementToTrack = correspondingElementViaPosn.replace(/ class=""/g, "");
+        updateDoc.$set.justTagString = correspondingElementViaPosnJustTag.replace(/ class=""/g, "");
         updateSuccess = true;
     }
     else {
@@ -86,12 +44,12 @@ async function updateOneAlert(alert,collection,document) {
 async function processOneAlert(alert,collection) {
     //Check for changes
     if (alert.fired === false) { //, but only if this alert hasn't already fired
-        let document = await fetchAndBuildDOM(alert.url);
-        const has_changed  = await hasTheWebsiteChanged(document,alert.elementToTrack);
+        await sandbox.remote.fetchAndBuildDOM(alert.url); //Prepare the document inside the sandbox
+        const has_changed  = await sandbox.remote.hasTheWebsiteChanged(alert.elementToTrack.toString());
 
         if (has_changed) {
             console.log(" - Change occurred to: " + alert.url);
-            const wasAbleToUpdate = await updateOneAlert(alert,collection,document); // cleanup the alert after change so it won't fire again until another change occurs.
+            const wasAbleToUpdate = await updateOneAlert(alert,collection); // cleanup the alert after change so it won't fire again until another change occurs.
             sendEmail(alert.username,alert.subject,alert.emailContent,alert.email,wasAbleToUpdate);
         } else {
             console.log(" - No Change to: " + alert.url);
@@ -123,5 +81,3 @@ async function checkforChanges() {
     console.log("Processed all alerts; closing connection.")
     await close();
 }
-
-checkforChanges();
