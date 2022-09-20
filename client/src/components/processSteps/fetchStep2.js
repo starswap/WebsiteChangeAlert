@@ -66,10 +66,10 @@ function LoadIndicator(props) {
         <div id="spacerTop"></div>
             <canvas ref={canvasRef} height={100}></canvas>
             <p>Just loading that page for you; hold on tight.</p>
-            <div class="spacer"></div>
+            <div className="spacer"></div>
             <a href="https://xkcd.com/612/"><img style={{height:250}} src="https://imgs.xkcd.com/comics/estimation.png" alt="An XKCD comic about progress estimation; LICENCE: https://creativecommons.org/licenses/by-nc/2.0/legalcode"/></a>
             <p>(Courtesy of <a id="xkcdLink" href="https://xkcd.com/612/">XKCD</a>)</p>
-            <div class="spacer"></div>
+            <div className="spacer"></div>
         </div>)
 }
 
