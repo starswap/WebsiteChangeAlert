@@ -35,6 +35,7 @@ Each of these uses could of course easily be accomplished manually and individua
 13. Add CAPTCHA?
 14. Add responsive design (support for mobile.)
 15. Allow logged in users to save their email address to save time (or just allow autofill)
+16. Display tag name which is currently highlighted below the iframe.
 
 ## Technical Details
 - MongoDB, Express, React, Node.js (MERN Stack).
