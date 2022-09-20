@@ -20,6 +20,18 @@ function stringMatch(string,pattern) {
     return false;
 } 
 
+function getElementFromChildIndex(document,childIndexArray) {
+    let htmlElement = document.getElementsByTagName("body")[0];
+    for (let index of childIndexArray) {
+        if (htmlElement.children.length <= index) {
+            return false; //not possible to resolve.
+        } else {
+            htmlElement = htmlElement.children[index];
+        }
+    }
+    return htmlElement;
+}
+
 async function hasTheWebsiteChanged(url, elementToTrack) {
     let targetContent = await fetch(url).then((response) => {return response.text()});
     
@@ -35,7 +47,7 @@ async function updateOneAlert(alert,collection,htmlResponse) {
     // If the website has changed and the alert has fired, we need to stop it from firing again at every subsequent run of this script, because that's annoying for the customer.
 
     const { document } = (new JSDOM(htmlResponse)).window;
-    const correspondingElement = null;
+    let correspondingElement = null;
     if (alert.id !== "")
         correspondingElement = document.getElementById(alert.id);
     
@@ -45,20 +57,34 @@ async function updateOneAlert(alert,collection,htmlResponse) {
     if (correspondingElement !== null) { //If there is still an object with the same ID on the page, we can now track that object
         updateDoc = {
             $set: {
-                fired: correspondingElement.outerHTML
+                elementToTrack: correspondingElement.outerHTML.replace(/ class=""/g, ""),
+                justTagString: correspondingElement.cloneNode().outerHTML.replace(/ class=""/g, "")
             },
         };
         wasAbleToUpdate = true;
     }
-    else {
-        updateDoc = {
-            $set: {
-              fired: true
-            },
-        };        
-        wasAbleToUpdate = false;
+    else  { 
+        const correspondingElementViaPosn = getElementFromChildIndex(document,alert.childIndexArray);
+        console.log(correspondingElementViaPosn.cloneNode().outerHTML)
+        if (correspondingElementViaPosn !== false && correspondingElementViaPosn.cloneNode().outerHTML === alert.justTagString) {
+            // if the element at that position on the page is still the same tag, then we can now track that.
+            updateDoc = {
+                $set: {
+                    elementToTrack: correspondingElementViaPosn.outerHTML.replace(/ class=""/g, ""),
+                    justTagString: correspondingElementViaPosn.cloneNode().outerHTML.replace(/ class=""/g, "")
+                },
+            };
+            wasAbleToUpdate = true;
+        }
+        else {
+            updateDoc = {
+                $set: {
+                  fired: true
+                },
+            };        
+            wasAbleToUpdate = false;
+        }
     }
-
     await collection.updateOne(alert, updateDoc);    
     console.log("Updated alert.");
     return wasAbleToUpdate;

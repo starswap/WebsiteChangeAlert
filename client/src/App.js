@@ -24,7 +24,13 @@ import BottomBar from './components/BottomBar/BottomBar';
 
 import {useState} from 'react';
 
+import getChildIndex from './getchildindex.js';
+
 async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
+  console.log(getChildIndex(tagObject));
+  console.log("cloning")
+  console.log(tagObject.cloneNode(false).outerHTML)
+
   const rawResponse = await fetch('/submit', {
     method: 'POST',
     headers: {
@@ -38,7 +44,9 @@ async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
         tagObjectString: tagObject.outerHTML.replace(/ class=""/g, ""),
         subjectLine: subjectLine,
         username: name,
-        id:tagObject.id
+        id:tagObject.id,
+        justTagString: tagObject.cloneNode(false).outerHTML.replace(/ class=""/g, ""),
+        childIndexArray: getChildIndex(tagObject)
       })
   });
   const content = await rawResponse.json();
