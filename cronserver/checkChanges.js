@@ -3,6 +3,7 @@ import sendEmail from "./email.js";
 import fetch from 'node-fetch'; 
 import puppeteer from "puppeteer";
 import {JSDOM} from "jsdom";
+import {Just, Nothing} from "../common/maybe.js";
 
 //These should really come from common.
 const FRAME_WIDTH = 720;
@@ -53,14 +54,27 @@ async function fetchAndBuildDOM(url) {
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
     page.setViewport({width:FRAME_WIDTH,height:FRAME_HEIGHT});
-    await page.goto(url);
-    
+    try {
+        await page.goto(url);
+    }
+    catch (err) {
+        if (stringMatch(err.message,"ERR_CONNECTION_REFUSED")) {
+            await browser.close();
+            return new Nothing();
+        }
+        else {
+            throw(err);
+        }
+    }
+
     try {
       await page.waitForNavigation({timeout: 5000});
     }
     catch (e) {
       if (e instanceof puppeteer.errors.TimeoutError) {}
-      else {throw(e);}
+      else {
+            throw(e);
+      }
     }
   
     const documentHTML = await page.evaluate(() => {
@@ -72,7 +86,7 @@ async function fetchAndBuildDOM(url) {
     const options = {};
 
     const { document } = (new JSDOM(documentHTML, options)).window;
-    return document;
+    return Just(document);
 }
 
 async function updateOneAlert(alert,collection,document) {
@@ -108,15 +122,22 @@ async function processOneAlert(alert,collection) {
     if (alert.fired === false || alert.fired == true && alert.devAlwaysTrigger == true) { //, but only if this alert hasn't already fired
       
         let document = await fetchAndBuildDOM(alert.url);
-        const has_changed  = await hasTheWebsiteChanged(document,alert.elementToTrack);
+        if (document instanceof Nothing) {
+            console.log(" - Website Failed To Load: " + alert.url);
+            return; //Do nothing
+        }
+        else {
+            document = document.justValue;
+            const has_changed  = await hasTheWebsiteChanged(document,alert.elementToTrack);
 
-        if (has_changed) {
-            console.log(" - Change occurred to: " + alert.url);
-            const wasAbleToUpdate = await updateOneAlert(alert,collection,document); // cleanup the alert after change so it won't fire again until another change occurs.
-            sendEmail(alert.username,alert.subject,alert.emailContent,alert.email,wasAbleToUpdate);
-        } else {
-            console.log(" - No Change to: " + alert.url);
-        }       
+            if (has_changed) {
+                console.log(" - Change occurred to: " + alert.url);
+                const wasAbleToUpdate = await updateOneAlert(alert,collection,document); // cleanup the alert after change so it won't fire again until another change occurs.
+                sendEmail(alert.username,alert.subject,alert.emailContent,alert.email,wasAbleToUpdate);
+            } else {
+                console.log(" - No Change to: " + alert.url);
+            }    
+        }
     }
 }
 
