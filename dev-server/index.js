@@ -6,6 +6,9 @@ import fs from 'fs';
 import cookies from 'cookie-parser';
 import {getDb} from '../common/db.js';
 
+import {config} from 'dotenv';
+config();
+
 
 const app = express();
 const PORT = 3000;
@@ -17,31 +20,38 @@ app.use(express.static('../client/build')); //serve statically deployed frontend
 
 
 app.post('/submit', async (req, res) => {
-    let cleanedObject = {
-        url: req.body.url,
-        email: req.body.email,
-        elementToTrack: req.body.tagObjectString,
-        emailContent: req.body.emailContents,
-        subject: req.body.subjectLine,
-        username: req.body.username,
-        id: req.body.id,
-        childIndexArray: req.body.childIndexArray,     
-        justTagString: req.body.justTagString,           
-        fired: false
-    }
-    console.log("Request to Notify Received");
-    console.log(cleanedObject);
-
-    const db = await getDb();
+    if (req.body.password === process.env.WEBSITE_PASSWORD) {
+        let cleanedObject = {
+            url: req.body.url,
+            email: req.body.email,
+            elementToTrack: req.body.tagObjectString,
+            emailContent: req.body.emailContents,
+            subject: req.body.subjectLine,
+            username: req.body.username,
+            id: req.body.id,
+            childIndexArray: req.body.childIndexArray,     
+            justTagString: req.body.justTagString,           
+            fired: false
+        }
+        console.log("Request to Notify Received");
+        console.log(cleanedObject);
     
-    //db.createCollection("alerts")
-    const collection = db.collection("alerts");
-    await collection.insertOne(cleanedObject);
-    console.log("The DB now looks like: ");
-    console.log(collection.find().forEach(console.log));
+        const db = await getDb();
+        
+        //db.createCollection("alerts")
+        const collection = db.collection("alerts");
+        await collection.insertOne(cleanedObject);
+        console.log("The DB now looks like: ");
+        console.log(collection.find().forEach(console.log));
+    
+        res.status(200); //need cookies to be set for it to work.
+        return res.send({"success":true});
+    } 
+    else {
+        res.status(401);
+        return res.send({"success":false})
+    }
 
-    res.status(200); //need cookies to be set for it to work.
-    return res.send({"success":true});
 });
 
 //proxy page; requested via cookies.

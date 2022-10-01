@@ -26,7 +26,7 @@ import {useState} from 'react';
 
 import getChildIndex from './getchildindex.js';
 
-async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
+async function submitData(url,email,emailContents,tagObject,subjectLine,name,password) {
   console.log(getChildIndex(tagObject));
   console.log("cloning")
   console.log(tagObject.cloneNode(false).outerHTML)
@@ -46,12 +46,13 @@ async function submitData(url,email,emailContents,tagObject,subjectLine,name) {
         username: name,
         id:tagObject.id,
         justTagString: tagObject.cloneNode(false).outerHTML.replace(/ class=""/g, ""),
-        childIndexArray: getChildIndex(tagObject)
+        childIndexArray: getChildIndex(tagObject),
+        password: password
       })
   });
   const content = await rawResponse.json();
 
-  console.log(content);
+  return content.success;
 }
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
   const [url,setUrl] = useState("");
   const [email,setEmail] = useState("");
   const [name,setName] = useState("");
+  const [success,setSuccess] = useState(false);
 
   let [emailContents,setEmailContents] = useState("");
   const [tagObject,setTagObject] = useState("");
@@ -90,18 +92,20 @@ function App() {
       setStepNumber( (stepNo) => stepNo+1);
     }}/>)
   else if (stepNumber === 4)
-    currentStep = (<FetchStep4 onChosen={ (emailSubjectToSet,emailContentsToSet) => {
+    currentStep = (<FetchStep4 onChosen={ async (emailSubjectToSet,emailContentsToSet) => {
       setEmailContents(emailContentsToSet);
       emailContents = emailContentsToSet; //local update.
 
       setSubjectLine(emailSubjectToSet);
       subjectLine = emailSubjectToSet;
-      submitData(url,email,emailContents,tagObject,subjectLine,name);
-      
+      const password = prompt("Please enter the password to create an alert.", "Password");
+      const result = await submitData(url,email,emailContents,tagObject,subjectLine,name,password);
+      setSuccess(result);
       setStepNumber( (stepNo) => stepNo+1);
+
     }}/>)
     else if (stepNumber === 5)
-      currentStep = (<FetchStep5 url={url} reset={() => {setStepNumber(1);}}/>)    
+      currentStep = (<FetchStep5 success={success} url={url} reset={() => {setStepNumber(1);}}/>)    
 
 
   const goBack = () => {
