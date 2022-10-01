@@ -1,7 +1,12 @@
 import {getDb, close} from "../common/db.js";
 import sendEmail from "./email.js";
 import fetch from 'node-fetch'; 
-import { JSDOM } from 'jsdom';
+import puppeteer from "puppeteer";
+import {JSDOM} from "jsdom";
+
+//These should really come from common.
+const FRAME_WIDTH = 720;
+const FRAME_HEIGHT = 450;
 
 
 function stringMatch(string,pattern) {
@@ -35,20 +40,6 @@ function getElementFromChildIndex(document,childIndexArray) {
     }
     return htmlElement;
 }
-
-async function fetchAndBuildDOM(url) {
-    let htmlResponse = await fetch(url).then((response) => {return response.text()});
-//     const options = {
-//         runScripts: "dangerously",
-//         resources: "usable",
-//         url: url
-//    }
-    const options = {};
-
-    const { document } = (new JSDOM(htmlResponse, options)).window;
-    return document;
-}
-
 async function hasTheWebsiteChanged(document, elementToTrack) {
     if (!stringMatch(document.body.outerHTML,elementToTrack)) { //target element no longer on page in desired form
         return true;
@@ -56,6 +47,32 @@ async function hasTheWebsiteChanged(document, elementToTrack) {
     else {
         return false;
     }
+}
+
+async function fetchAndBuildDOM(url) {
+    const browser = await puppeteer.launch({headless: false});
+    const page = await browser.newPage();
+    page.setViewport({width:FRAME_WIDTH,height:FRAME_HEIGHT});
+    await page.goto(url);
+    
+    try {
+      await page.waitForNavigation({timeout: 5000});
+    }
+    catch (e) {
+      if (e instanceof puppeteer.errors.TimeoutError) {}
+      else {throw(e);}
+    }
+  
+    const documentHTML = await page.evaluate(() => {
+      return document.getElementsByTagName("html")[0].outerHTML;
+    });
+
+    await browser.close();
+
+    const options = {};
+
+    const { document } = (new JSDOM(documentHTML, options)).window;
+    return document;
 }
 
 async function updateOneAlert(alert,collection,document) {
@@ -89,6 +106,7 @@ async function updateOneAlert(alert,collection,document) {
 async function processOneAlert(alert,collection) {
     //Check for changes
     if (alert.fired === false || alert.fired == true && alert.devAlwaysTrigger == true) { //, but only if this alert hasn't already fired
+      
         let document = await fetchAndBuildDOM(alert.url);
         const has_changed  = await hasTheWebsiteChanged(document,alert.elementToTrack);
 
