@@ -51,7 +51,7 @@ async function hasTheWebsiteChanged(document, elementToTrack) {
 }
 
 async function fetchAndBuildDOM(url) {
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     page.setViewport({width:FRAME_WIDTH,height:FRAME_HEIGHT});
     try {
