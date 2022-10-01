@@ -23,7 +23,7 @@ export default function FetchStep2 (props) {
       },[url]);
 
       
-      let instructionText = isUserOnMobile() ? "Right Click" : "Press and Hold";
+      let instructionText = isUserOnMobile() ? "Press and Hold" : "Right Click";
       
       return (
         <>
