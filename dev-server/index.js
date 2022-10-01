@@ -61,7 +61,12 @@ app.get('/proxyPage', async (req,res) => {
         let targetText;
 
         try {
-            targetText = await fetch(proxyURL).then((response) => {return response.text()});
+            targetText = await fetch(proxyURL,{headers: 
+                {
+                    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36",
+                    "Referrer": proxyURL
+                }
+            }).then((response) => {return response.text()});
         }
         catch (e) {
             if (e instanceof TypeError) {
