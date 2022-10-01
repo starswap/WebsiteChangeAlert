@@ -24,6 +24,9 @@ function getElementFromChildIndex(document,childIndexArray) {
     let htmlElement = document.body;
     for (let index of childIndexArray) {
         console.log(htmlElement);
+        for (let child of htmlElement.children) {
+            console.log(child.cloneNode().outerHTML);
+        }
         if (htmlElement.children.length <= index) {
             return false; //not possible to resolve.
         } else {
@@ -35,10 +38,10 @@ function getElementFromChildIndex(document,childIndexArray) {
 
 async function fetchAndBuildDOM(url) {
     let htmlResponse = await fetch(url).then((response) => {return response.text()});
-    // const options = {
-    //     runScripts: "dangerously",
-    //     resources: "usable",
-    //     url: url
+//     const options = {
+//         runScripts: "dangerously",
+//         resources: "usable",
+//         url: url
 //    }
     const options = {};
 
@@ -85,7 +88,7 @@ async function updateOneAlert(alert,collection,document) {
 
 async function processOneAlert(alert,collection) {
     //Check for changes
-    if (alert.fired === false) { //, but only if this alert hasn't already fired
+    if (alert.fired === false || alert.fired == true && alert.devAlwaysTrigger == true) { //, but only if this alert hasn't already fired
         let document = await fetchAndBuildDOM(alert.url);
         const has_changed  = await hasTheWebsiteChanged(document,alert.elementToTrack);
 
