@@ -22,7 +22,7 @@ export default function FetchStep4 (props) {
         <>
             <h3>Enter the subject and content of the email alert to send.</h3> 
 
-            <form onSubmit={handleSubmit} autoComplete="off">
+            <form onSubmit={handleSubmit} autoComplete="off" id="emailForm">
                 
                 <div id="emailContainer">
                     <input type='text' name='subjectLine' id='subjectLine' placeholder='Subject Line' onChange={handleChangeToSubject} /> <br /> 

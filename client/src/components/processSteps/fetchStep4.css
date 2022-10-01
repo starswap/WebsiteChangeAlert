@@ -1,9 +1,13 @@
 #emailContent {
-    max-width: 500px;
+    max-width: 800px;
     width: 90%;
     height: 300px;
     resize: none;
     font-family: 'Courier New', Courier, monospace;
+}
+
+#emailForm {
+    min-width: 70%;
 }
 
 #emailContent:focus {
@@ -45,7 +49,7 @@
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     #emailContainer {
         display:flex;
         flex-direction:column;
