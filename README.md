@@ -20,9 +20,9 @@ Each of these uses could of course easily be accomplished manually and individua
 
 0. [Fix up the code to make it more maintainable]
 1. Support different time periods to check on.
-2. Support apps rendered with client side JS such as React, by running JS in jalied sandbox
+2. ~~Support apps rendered with client side JS such as React, by running scripts inside Chrome~~✔️
 3. Support conditional triggers so a new internship only causes an alert if it's in the UK, for example.
-4. Allow users to login and save their details in order to save time when setting up alerts.
+4. Allow users to login and save their details in order to save time when setting up alerts, and so there isn't a single password for all.
 5. Allow users to delete alerts once they are setup (without needing to delve into the DB!).
 6. Reduce the likelihood of emails going to Junk
 7. Add a section detailing recent use cases of the app (not hard-coded), updating every time a user creates a new trigger.
@@ -30,10 +30,9 @@ Each of these uses could of course easily be accomplished manually and individua
 8. ~~Update the Database to cleanup once a change is noted to the site so that the triggers are reusable and not once-only.~~ ✔️
 9. ~~Add a loading image to the iframe before it has loaded since it is slow on vercel;~~ ✔️ try to improve caching to speed up.
 10. Support mobile devices with responsive design and PWA integration.
-11. Add more ways to notify such as discord integration.
-12. Add screenshots to emails?
-13. Add CAPTCHA?
-14. Add responsive design (support for mobile.)
+11. Add more ways to notify such as discord integration. (maybe with RSS)
+12. Add screenshots to emails? - can be done with Puppeteer
+13. Add CAPTCHA to prevent robotic submissions?
 15. Allow logged in users to save their email address to save time (or just allow autofill)
 16. Display tag name which is currently highlighted below the iframe.
 17. Make a release
