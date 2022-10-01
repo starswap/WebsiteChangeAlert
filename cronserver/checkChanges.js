@@ -29,10 +29,6 @@ function stringMatch(string,pattern) {
 function getElementFromChildIndex(document,childIndexArray) {
     let htmlElement = document.body;
     for (let index of childIndexArray) {
-        console.log(htmlElement);
-        for (let child of htmlElement.children) {
-            console.log(child.cloneNode().outerHTML);
-        }
         if (htmlElement.children.length <= index) {
             return false; //not possible to resolve.
         } else {
@@ -114,7 +110,6 @@ async function updateOneAlert(alert,collection,document) {
     }
 
     await collection.updateOne(alert, updateDoc);
-    console.log("Updated alert.");
     return updateSuccess;
 }
 
