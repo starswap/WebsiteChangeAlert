@@ -6,6 +6,7 @@
     "scripts": {
         "start": "node index.js",
         "install": "cd client && npm install && cd ../common && npm install && cd ../api && npm install",
+        "dev-install": "cd client && npm install && cd ../common && npm install && cd ../dev-server && npm install",
         "build-frontend": "cd client && npm run build"
     }
 }
