@@ -4,7 +4,8 @@ class Maybe {
 
 export class Just extends Maybe {
     constructor(justValue) {
-        this.just = justValue;
+        super()
+        this.justValue = justValue;
     }
 }
 

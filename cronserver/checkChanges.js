@@ -8,7 +8,7 @@ import {Just, Nothing} from "../common/maybe.js";
 //These should really come from common.
 const FRAME_WIDTH = 720;
 const FRAME_HEIGHT = 450;
-
+const PAGE_LOAD_TIMEOUT = 5000;
 
 function stringMatch(string,pattern) {
     for (let i=0;i<string.length;++i) {
@@ -53,12 +53,14 @@ async function hasTheWebsiteChanged(document, elementToTrack) {
 async function fetchAndBuildDOM(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+
     page.setViewport({width:FRAME_WIDTH,height:FRAME_HEIGHT});
+    
     try {
         await page.goto(url);
     }
     catch (err) {
-        if (stringMatch(err.message,"ERR_CONNECTION_REFUSED")) {
+        if (stringMatch(err.message,"ERR_CONNECTION_REFUSED")) { //Couldn't connect
             await browser.close();
             return new Nothing();
         }
@@ -68,25 +70,24 @@ async function fetchAndBuildDOM(url) {
     }
 
     try {
-      await page.waitForNavigation({timeout: 5000});
+        await page.waitForNavigation({timeout: PAGE_LOAD_TIMEOUT});
     }
     catch (e) {
-      if (e instanceof puppeteer.errors.TimeoutError) {}
+      if (e instanceof puppeteer.errors.TimeoutError) {} //ignore these errors
       else {
             throw(e);
       }
     }
   
     const documentHTML = await page.evaluate(() => {
-      return document.getElementsByTagName("html")[0].outerHTML;
+        return document.getElementsByTagName("html")[0].outerHTML;
     });
 
     await browser.close();
 
     const options = {};
-
     const { document } = (new JSDOM(documentHTML, options)).window;
-    return Just(document);
+    return new Just(document);
 }
 
 async function updateOneAlert(alert,collection,document) {
