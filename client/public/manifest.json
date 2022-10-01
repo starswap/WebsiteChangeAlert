@@ -1,14 +1,24 @@
 {
-  "short_name": "Change Alert",
+  "short_name": "Web Change Alert",
   "name": "Website Change Alert",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "128x128 64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "icon_large.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose":"any"
+    },
+    {
+      "src":"maskable_icon.png",
+      "purpose":"maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "green"
