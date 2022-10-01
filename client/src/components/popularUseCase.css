@@ -1,17 +1,22 @@
 .popularUseCase {
-    flex-wrap: wrap;
-    padding-left: 10px;
-    padding-right: 10px;
+  flex-wrap: wrap;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.popularUseCase p {
+  width: 60%;
+}
+
+.circleImage {
+  width: 80%;
+  max-width: 200px;
+  border-radius: 40px;
+  flex-grow: 2;
+}
+
+@media only screen and (max-width: 700px) {
+  .popularUseCaseText {
+    display:none;
   }
-  
-  .popularUseCase p {
-    width: 60%;
-  }
-  
-  .circleImage {
-    width: 80%;
-    max-width: 200px;
-    border-radius: 40px;
-    flex-grow: 2;
-  }
-  
+}

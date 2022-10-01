@@ -71,6 +71,12 @@ h3 {
   /*transition: max-height 2s;*/
 }
 
+@media only screen and (max-width: 700px) {
+  #topContainer {
+    height: 400px;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: 10% 80% 10%;
@@ -87,7 +93,8 @@ h3 {
   margin: 0px;
   padding: 0px;
   padding: 5px 5px 5px 5px;
-  width: 50px;
+  max-width: 50px;
+  width: 15%;
   border-radius: 0px 5px 5px 0px;
   border-style:none;
   background-color: var(--brand-dark);
@@ -112,9 +119,9 @@ input[type=submit]:hover {
   border-radius: 5px 0px 0px 5px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-style: none;
-  width: 400px;
+  width: 80%;
   padding: 5px 0px 5px 5px;
-  /* max-width: 80%; */
+  max-width: 400px;
   flex-grow:2;
 }
 
@@ -142,7 +149,7 @@ input[type=submit]:hover {
 /*Parts of the homepage*/
 
 .panel {
-  height: 350px;
+  min-height: 350px;
   padding-top:25px;
   padding-bottom:25px;  
 }

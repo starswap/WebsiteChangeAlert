@@ -24,7 +24,7 @@ export default function FetchStep3 (props) {
 
             <form onSubmit={handleSubmit} autoComplete="off" id="nameAndSubjectForm">
                 <input type='text' name='name' placeholder="Name" value={name} onChange={handleChangeToName} id="username"/> <br />     
-                <div className="row">
+                <div className="row" id="emailHolder">
                     <input type='text' name='email' id='email' placeholder="Email" value={email} onChange={handleChange} className="urlAndEmail"/>
                     <input type='submit' name='submit' id='submit' value='Next >' className="submitButton"/>
                 </div>

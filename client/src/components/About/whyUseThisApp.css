@@ -1,7 +1,33 @@
 #reasons {
     text-align:left;
+}
+
+#reasons li {
+  font-size:20px;
+}
   
+#clock {
+  height: 300px;
+}  
+
+#clockHolder {
+}
+
+#whyUseRow {
+  height: 100%;
+}
+
+
+@media only screen and (max-width: 700px) {
+  #reasons li {
+    font-size: 15px;
   }
-  #reasons li{ font-size:20px; }
-  
-  
+  #clockHolder {
+    display:none;
+  }
+
+  #About {
+    max-height: 200px !important;
+    min-height: 200px !important;
+  }
+}

@@ -3,9 +3,11 @@ import "./whyUseThisApp.css";
 
 export default function WhyUseThisApp() {
     return (<div id="About" className='panel'>
-        <div className="row">
-            <div className='column'>
-                <img src={smilingClock} alt=""/>
+        <div className="row" id="whyUseRow">
+            <div className='column' id="clockHolder">
+                <div className="spacer"></div>
+                <img src={smilingClock} id="clock" alt=""/>
+                <div className="spacer"></div>
             </div>
             <div className='column'>
                 <h3>Why should you use this website?</h3>

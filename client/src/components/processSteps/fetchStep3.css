@@ -2,18 +2,24 @@
     border-radius: 5px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-style: none;
-    width: 99%;
+    width: 98%;
     padding: 5px 0px 5px 0px;
     padding-left: 1%;
     
 
     border-style:none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 450px;
 }  
+
+#emailHolder {
+    width: 100%;
+}
 
 #nameAndSubjectForm {
     display:flex;
     flex-direction:column;
     justify-content: center;
-    
+    width:100%;
+    align-items: center;
 }

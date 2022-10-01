@@ -1,9 +1,9 @@
 #emailContent {
-    width: 500px;
-    height: 200px;
+    max-width: 500px;
+    width: 90%;
+    height: 300px;
     resize: none;
     font-family: 'Courier New', Courier, monospace;
-
 }
 
 #emailContent:focus {
@@ -42,4 +42,23 @@
     display:flex;
     flex-direction:column;
     justify-content: flex-start;
+}
+
+
+@media only screen and (max-width: 600px) {
+    #emailContainer {
+        display:flex;
+        flex-direction:column;
+        justify-content: center !important;
+        align-items: center;
+    }    
+
+    #emailContent, #subjectLine {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        border-radius: 5px;
+    } 
+    #emailContent {
+        height: 100px;
+    }
+
 }

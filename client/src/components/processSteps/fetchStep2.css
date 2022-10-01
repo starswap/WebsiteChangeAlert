@@ -8,6 +8,16 @@
     /* overflow: hidden; */
 } 
 
+@media only screen and (max-width: 700px) {
+  #elementPickFrame,#frameLoadPlaceholder {
+    width: 360px;
+    height: 225px;     
+  }
+  #loadingMessage {
+    margin-top:0px;
+  }
+  
+}
 #frameLoadPlaceholder {
   display: flex;
   flex-direction: column;
@@ -17,6 +27,16 @@
 
 #spacerTop {
   flex-grow: 1;
+}
+
+#XKCD {
+  height: 30%;
+  max-height: 250px;
+}
+
+#loadingCanvas {
+  max-height:100px;
+  height:30%;
 }
 
 #xkcdLink {

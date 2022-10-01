@@ -1,7 +1,24 @@
+#mylinemobile {
+    display: none;
+}
+
 #myline {
     width: 300px;
     font-size: 20pt;
     font-style: italic;
+}
+
+@media only screen and (max-width: 700px) {
+    #me-block-mobile {
+        display:block !important;
+    }
+    #me-block {
+        display: none;
+    }
+}
+
+#me-block-mobile {
+    display:none;
 }
 
 #me {
