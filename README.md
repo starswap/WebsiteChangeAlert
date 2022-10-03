@@ -18,10 +18,24 @@ Each of these uses could of course easily be accomplished manually and individua
     ID or same outer HTML
     Mention in email if it could be reused.~~ ✔️
 
-0. [Fix up the code to make it more maintainable]
+0. [Fix up the code to make it more maintainable
+    Particular code quality points:
+    - State & State -> State & Props (don't duplicate state)
+    - Resolve Shared dependencies issue / improve package.json structure so there's only one right way to do it
+    - Use Unit Tests to check everthing is working
+    - Consider use of awaits and promises in cronserver - are we getting what we want out of this?
+    - Try to get a maximum score on lighthouse (particularly the performance score is important)
+    - Clear cookies at the end / Add a cookie policy
+    - Improve DB field naming]
+1. [Improve general efficacy on various sites:
+    - Fix style.css not showing up
+    - Rename static to avoid conflicts
+    - Fix the mobile cookies issue whereby you have to try it twice for it to work]
+3. Support conditional triggers so a new internship only causes an alert if it's in the UK, for example.
+11. Add more ways to notify such as discord integration. (probably with RSS)
+2. Update homepage to make it a bit more useful rather than having fillers.
 1. Support different time periods to check on.
 2. ~~Support apps rendered with client side JS such as React, by running scripts inside Chrome~~✔️
-3. Support conditional triggers so a new internship only causes an alert if it's in the UK, for example.
 4. Allow users to login and save their details in order to save time when setting up alerts, and so there isn't a single password for all.
 5. Allow users to delete alerts once they are setup (without needing to delve into the DB!).
 6. Reduce the likelihood of emails going to Junk
@@ -29,8 +43,7 @@ Each of these uses could of course easily be accomplished manually and individua
     "Auto image" - or maybe with a push notification like you see on some websites, in the corner.
 8. ~~Update the Database to cleanup once a change is noted to the site so that the triggers are reusable and not once-only.~~ ✔️
 9. ~~Add a loading image to the iframe before it has loaded since it is slow on vercel;~~ ✔️ try to improve caching to speed up.
-10. Support mobile devices with responsive design and PWA integration.
-11. Add more ways to notify such as discord integration. (maybe with RSS)
+10. ~~Support mobile devices with responsive design and PWA integration.~~ ✔️
 12. Add screenshots to emails? - can be done with Puppeteer
 13. Add CAPTCHA to prevent robotic submissions?
 15. Allow logged in users to save their email address to save time (or just allow autofill)
