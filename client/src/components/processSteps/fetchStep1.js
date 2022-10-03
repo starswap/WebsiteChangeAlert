@@ -3,7 +3,7 @@ import './fetchStep1.css';
 
 export default function FetchStep1 (props) {
 
-    let [url, setUrl] = useState("https://latinvocabularytester.com/");
+    let [url, setUrl] = useState("");
 
       function handleChange(e) {
         setUrl(e.target.value);
