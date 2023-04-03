@@ -3,7 +3,7 @@ name: Check for Changes
 
 on:
   schedule:
-    - cron: '19 * * * *'
+    - cron: '19 01 * * *'
   workflow_dispatch:
 
 jobs:
